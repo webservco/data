@@ -12,10 +12,12 @@ use function sprintf;
 
 final class ArrayNonEmptyDataExtractionService implements ArrayNonEmptyDataExtractionServiceInterface
 {
+    private ArrayDataExtractionServiceInterface $arrayDataExtractionService;
     private const MESSAGE_VALUE_EMPTY_ERROR = 'Data is empty for key %s.';
 
-    public function __construct(private ArrayDataExtractionServiceInterface $arrayDataExtractionService)
+    public function __construct(ArrayDataExtractionServiceInterface $arrayDataExtractionService)
     {
+        $this->arrayDataExtractionService = $arrayDataExtractionService;
     }
 
     /**

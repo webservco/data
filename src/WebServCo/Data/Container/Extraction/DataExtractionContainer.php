@@ -10,12 +10,13 @@ use WebServCo\Data\Contract\Extraction\DataExtractionContainerInterface;
 
 final class DataExtractionContainer implements DataExtractionContainerInterface
 {
-    public function __construct(
-        private ArrayDataExtractionServiceInterface $arrayDataExtractionService,
-        private ArrayNonEmptyDataExtractionServiceInterface $arrayNonEmptyDataExtractionService,
-    ) {
+    private ArrayDataExtractionServiceInterface $arrayDataExtractionService;
+    private ArrayNonEmptyDataExtractionServiceInterface $arrayNonEmptyDataExtractionService;
+    public function __construct(ArrayDataExtractionServiceInterface $arrayDataExtractionService, ArrayNonEmptyDataExtractionServiceInterface $arrayNonEmptyDataExtractionService)
+    {
+        $this->arrayDataExtractionService = $arrayDataExtractionService;
+        $this->arrayNonEmptyDataExtractionService = $arrayNonEmptyDataExtractionService;
     }
-
     public function getArrayDataExtractionService(): ArrayDataExtractionServiceInterface
     {
         return $this->arrayDataExtractionService;
