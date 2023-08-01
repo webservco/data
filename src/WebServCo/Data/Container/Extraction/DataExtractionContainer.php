@@ -12,14 +12,17 @@ use WebServCo\Data\Contract\Extraction\Strict\StrictArrayNonEmptyDataExtractionS
 
 final class DataExtractionContainer implements DataExtractionContainerInterface
 {
-    public function __construct(
-        private LooseArrayDataExtractionServiceInterface $looseArrayDataExtractionService,
-        private LooseArrayNonEmptyDataExtractionServiceInterface $looseArrayNonEmptyDataExtractionService,
-        private StrictArrayDataExtractionServiceInterface $strictArrayDataExtractionService,
-        private StrictArrayNonEmptyDataExtractionServiceInterface $strictArrayNonEmptyDataExtractionService,
-    ) {
+    private LooseArrayDataExtractionServiceInterface $looseArrayDataExtractionService;
+    private LooseArrayNonEmptyDataExtractionServiceInterface $looseArrayNonEmptyDataExtractionService;
+    private StrictArrayDataExtractionServiceInterface $strictArrayDataExtractionService;
+    private StrictArrayNonEmptyDataExtractionServiceInterface $strictArrayNonEmptyDataExtractionService;
+    public function __construct(LooseArrayDataExtractionServiceInterface $looseArrayDataExtractionService, LooseArrayNonEmptyDataExtractionServiceInterface $looseArrayNonEmptyDataExtractionService, StrictArrayDataExtractionServiceInterface $strictArrayDataExtractionService, StrictArrayNonEmptyDataExtractionServiceInterface $strictArrayNonEmptyDataExtractionService)
+    {
+        $this->looseArrayDataExtractionService = $looseArrayDataExtractionService;
+        $this->looseArrayNonEmptyDataExtractionService = $looseArrayNonEmptyDataExtractionService;
+        $this->strictArrayDataExtractionService = $strictArrayDataExtractionService;
+        $this->strictArrayNonEmptyDataExtractionService = $strictArrayNonEmptyDataExtractionService;
     }
-
     public function getLooseArrayDataExtractionService(): LooseArrayDataExtractionServiceInterface
     {
         return $this->looseArrayDataExtractionService;

@@ -17,12 +17,14 @@ use function sprintf;
 
 abstract class AbstractArrayDataExtractionService implements ArrayDataExtractionServiceInterface
 {
+    private bool $useTypeCasting;
     protected const MESSAGE_VALUE_EMPTY = 'Data is empty for key %s.';
     private const MESSAGE_KEY_MISSING = 'Array does not contain key: %s.';
     private const MESSAGE_VALUE_TYPE_DIFFERENT = 'Data type is different than expected for key %s.';
 
-    public function __construct(private bool $useTypeCasting)
+    public function __construct(bool $useTypeCasting)
     {
+        $this->useTypeCasting = $useTypeCasting;
     }
 
     /**
