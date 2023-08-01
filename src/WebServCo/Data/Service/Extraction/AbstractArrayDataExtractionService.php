@@ -66,6 +66,10 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
 
         $value = $data[$key];
 
+        if ($this->useTypeCasting) {
+            $value = (float) $value;
+        }
+
         if (!is_float($value)) {
             throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_DIFFERENT, $key));
         }
@@ -88,6 +92,10 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
 
         $value = $data[$key];
 
+        if ($this->useTypeCasting) {
+            $value = (int) $value;
+        }
+
         if (!is_int($value)) {
             throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_DIFFERENT, $key));
         }
@@ -109,6 +117,10 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
         }
 
         $value = $data[$key];
+
+        if ($this->useTypeCasting) {
+            $value = (string) $value;
+        }
 
         if (!is_string($value)) {
             throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_DIFFERENT, $key));
