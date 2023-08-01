@@ -9,11 +9,9 @@ use WebServCo\Data\Contract\Extraction\ArrayNonEmptyDataExtractionServiceInterfa
 
 use function sprintf;
 
-final class ArrayNonEmptyDataExtractionService extends AbstractArrayDataExtractionService implements
+abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayDataExtractionService implements
     ArrayNonEmptyDataExtractionServiceInterface
 {
-    private const MESSAGE_VALUE_EMPTY_ERROR = 'Data is empty for key %s.';
-
     /**
      * @param array<string,scalar|null> $data
      */
@@ -22,7 +20,7 @@ final class ArrayNonEmptyDataExtractionService extends AbstractArrayDataExtracti
         $value = $this->getFloat($data, $key, $defaultValue);
 
         if ($value === 0.0) {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_EMPTY_ERROR, $key));
+            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_EMPTY, $key));
         }
 
         return $value;
@@ -36,7 +34,7 @@ final class ArrayNonEmptyDataExtractionService extends AbstractArrayDataExtracti
         $value = $this->getInt($data, $key, $defaultValue);
 
         if ($value === 0) {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_EMPTY_ERROR, $key));
+            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_EMPTY, $key));
         }
 
         return $value;
@@ -50,7 +48,7 @@ final class ArrayNonEmptyDataExtractionService extends AbstractArrayDataExtracti
         $value = $this->getString($data, $key, $defaultValue);
 
         if ($value === '') {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_EMPTY_ERROR, $key));
+            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_EMPTY, $key));
         }
 
         return $value;

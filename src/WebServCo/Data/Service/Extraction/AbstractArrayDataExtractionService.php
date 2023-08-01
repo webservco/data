@@ -17,8 +17,13 @@ use function sprintf;
 
 abstract class AbstractArrayDataExtractionService implements ArrayDataExtractionServiceInterface
 {
-    private const MESSAGE_KEY_ERROR = 'Array does not contain key: %s.';
-    private const MESSAGE_VALUE_TYPE_ERROR = 'Data type is different than expected for key %s.';
+    protected const MESSAGE_VALUE_EMPTY = 'Data is empty for key %s.';
+    private const MESSAGE_KEY_MISSING = 'Array does not contain key: %s.';
+    private const MESSAGE_VALUE_TYPE_DIFFERENT = 'Data type is different than expected for key %s.';
+
+    public function __construct(private bool $useTypeCasting)
+    {
+    }
 
     /**
      * @param array<string,scalar|null> $data
@@ -30,13 +35,17 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_ERROR, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
         }
 
         $value = $data[$key];
 
+        if ($this->useTypeCasting) {
+            $value = (bool) $value;
+        }
+
         if (!is_bool($value)) {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_ERROR, $key));
+            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_DIFFERENT, $key));
         }
 
         return $value;
@@ -52,13 +61,13 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_ERROR, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
         }
 
         $value = $data[$key];
 
         if (!is_float($value)) {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_ERROR, $key));
+            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_DIFFERENT, $key));
         }
 
         return $value;
@@ -74,13 +83,13 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_ERROR, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
         }
 
         $value = $data[$key];
 
         if (!is_int($value)) {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_ERROR, $key));
+            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_DIFFERENT, $key));
         }
 
         return $value;
@@ -96,13 +105,13 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_ERROR, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
         }
 
         $value = $data[$key];
 
         if (!is_string($value)) {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_ERROR, $key));
+            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_TYPE_DIFFERENT, $key));
         }
 
         return $value;
@@ -118,7 +127,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_ERROR, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
         }
 
         if ($data[$key] === null) {
@@ -138,7 +147,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_ERROR, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
         }
 
         if ($data[$key] === null) {
@@ -158,7 +167,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_ERROR, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
         }
 
         if ($data[$key] === null) {
@@ -178,7 +187,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_ERROR, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
         }
 
         if ($data[$key] === null) {
