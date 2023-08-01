@@ -41,3 +41,9 @@ Data must be of the type specified.
 Data is cast to the specified type when extracting.
 
 Example use case: database result where everything is a string.
+
+---
+
+## TODO
+
+- Improve the `getNullable*` methods;
