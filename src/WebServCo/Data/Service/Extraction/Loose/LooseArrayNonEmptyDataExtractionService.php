@@ -12,6 +12,6 @@ final class LooseArrayNonEmptyDataExtractionService extends AbstractArrayNonEmpt
 {
     public function __construct()
     {
-        parent::__construct(false);
+        parent::__construct(true);
     }
 }
