@@ -18,12 +18,14 @@ use function sprintf;
 
 abstract class AbstractArrayDataExtractionService implements ArrayDataExtractionServiceInterface
 {
+    private bool $useTypeCasting;
     protected const MESSAGE_VALUE_EMPTY = 'Data is empty for key %s.';
     private const MESSAGE_KEY_MISSING = 'Array does not contain key: %s.';
     private const MESSAGE_VALUE_TYPE_DIFFERENT = 'Data type is different than expected for key %s.';
 
-    public function __construct(private bool $useTypeCasting)
+    public function __construct(bool $useTypeCasting)
     {
+        $this->useTypeCasting = $useTypeCasting;
     }
 
     /**
@@ -226,7 +228,10 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
         return $this->getString($data, $key, $defaultValue);
     }
 
-    private function getTypeCastedFloatValue(mixed $value): float
+    /**
+     * @param mixed $value
+     */
+    private function getTypeCastedFloatValue($value): float
     {
         if (!is_scalar($value)) {
             throw new UnexpectedValueException('Value is not scalar, type casting is not possible.');
@@ -235,7 +240,10 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
         return (float) $value;
     }
 
-    private function getTypeCastedIntValue(mixed $value): int
+    /**
+     * @param mixed $value
+     */
+    private function getTypeCastedIntValue($value): int
     {
         if (!is_scalar($value)) {
             throw new UnexpectedValueException('Value is not scalar, type casting is not possible.');
@@ -244,7 +252,10 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
         return (int) $value;
     }
 
-    private function getTypeCastedStringValue(mixed $value): string
+    /**
+     * @param mixed $value
+     */
+    private function getTypeCastedStringValue($value): string
     {
         if (!is_scalar($value)) {
             throw new UnexpectedValueException('Value is not scalar, type casting is not possible.');
