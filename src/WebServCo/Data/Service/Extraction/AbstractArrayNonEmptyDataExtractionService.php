@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace WebServCo\Data\Service\Extraction;
 
-use UnexpectedValueException;
 use WebServCo\Data\Contract\Extraction\ArrayNonEmptyDataExtractionServiceInterface;
-
-use function sprintf;
 
 abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayDataExtractionService implements
     ArrayNonEmptyDataExtractionServiceInterface
@@ -21,11 +18,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     {
         $value = $this->getFloat($data, $key, $defaultValue);
 
-        if ($value === 0.0) {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_EMPTY, $key));
-        }
-
-        return $value;
+        return $this->scalarNonEmptyDataExtractionService->getNonEmptyFloat($value);
     }
 
     /**
@@ -37,11 +30,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     {
         $value = $this->getInt($data, $key, $defaultValue);
 
-        if ($value === 0) {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_EMPTY, $key));
-        }
-
-        return $value;
+        return $this->scalarNonEmptyDataExtractionService->getNonEmptyInt($value);
     }
 
     /**
@@ -53,11 +42,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     {
         $value = $this->getString($data, $key, $defaultValue);
 
-        if ($value === '') {
-            throw new UnexpectedValueException(sprintf(self::MESSAGE_VALUE_EMPTY, $key));
-        }
-
-        return $value;
+        return $this->scalarNonEmptyDataExtractionService->getNonEmptyString($value);
     }
 
     /**
@@ -69,11 +54,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     {
         $value = $this->getNullableFloat($data, $key, $defaultValue);
 
-        if ($value === null) {
-            return null;
-        }
-
-        return $this->getNonEmptyFloat($data, $key, $defaultValue);
+        return $this->scalarNonEmptyDataExtractionService->getNonEmptyNullableFloat($value);
     }
 
     /**
@@ -85,11 +66,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     {
         $value = $this->getNullableInt($data, $key, $defaultValue);
 
-        if ($value === null) {
-            return null;
-        }
-
-        return $this->getNonEmptyInt($data, $key, $defaultValue);
+        return $this->scalarNonEmptyDataExtractionService->getNonEmptyNullableInt($value);
     }
 
     /**
@@ -101,10 +78,6 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     {
         $value = $this->getNullableString($data, $key, $defaultValue);
 
-        if ($value === null) {
-            return null;
-        }
-
-        return $this->getNonEmptyString($data, $key, $defaultValue);
+        return $this->scalarNonEmptyDataExtractionService->getNonEmptyNullableString($value);
     }
 }

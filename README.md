@@ -20,13 +20,14 @@ A PHP component/library for data handling.
 
 ## Data extraction
 
+### Scalar data extraction service
 ### Array data extraction service
 
 Two service types available:
 
-#### ArrayDataExtractionService
+#### DataExtractionService
 
-#### ArrayNonEmptyDataExtractionService
+#### NonEmptyDataExtractionService
 
 As above except validates data to be non empty.
 
@@ -43,7 +44,3 @@ Data is cast to the specified type when extracting.
 Example use case: database result where everything is a string.
 
 ---
-
-## TODO
-
-- Improve the `getNullable*` methods;
