@@ -12,6 +12,7 @@ use function array_key_exists;
 use function is_bool;
 use function is_float;
 use function is_int;
+use function is_scalar;
 use function is_string;
 use function sprintf;
 
@@ -26,7 +27,9 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     }
 
     /**
-     * @param array<string,scalar|null> $data
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+     * @param array<mixed> $data
+     * @phpcs:enable
      */
     public function getBoolean(array $data, string $key, ?bool $defaultValue = null): bool
     {
@@ -52,7 +55,9 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     }
 
     /**
-     * @param array<string,scalar|null> $data
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+     * @param array<mixed> $data
+     * @phpcs:enable
      */
     public function getFloat(array $data, string $key, ?float $defaultValue = null): float
     {
@@ -67,7 +72,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
         $value = $data[$key];
 
         if ($this->useTypeCasting) {
-            $value = (float) $value;
+            $value = $this->getTypeCastedFloatValue($value);
         }
 
         if (!is_float($value)) {
@@ -78,7 +83,9 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     }
 
     /**
-     * @param array<string,scalar|null> $data
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+     * @param array<mixed> $data
+     * @phpcs:enable
      */
     public function getInt(array $data, string $key, ?int $defaultValue = null): int
     {
@@ -93,7 +100,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
         $value = $data[$key];
 
         if ($this->useTypeCasting) {
-            $value = (int) $value;
+            $value = $this->getTypeCastedIntValue($value);
         }
 
         if (!is_int($value)) {
@@ -104,7 +111,9 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     }
 
     /**
-     * @param array<string,scalar|null> $data
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+     * @param array<mixed> $data
+     * @phpcs:enable
      */
     public function getString(array $data, string $key, ?string $defaultValue = null): string
     {
@@ -119,7 +128,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
         $value = $data[$key];
 
         if ($this->useTypeCasting) {
-            $value = (string) $value;
+            $value = $this->getTypeCastedStringValue($value);
         }
 
         if (!is_string($value)) {
@@ -130,7 +139,9 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     }
 
     /**
-     * @param array<string,scalar|null> $data
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+     * @param array<mixed> $data
+     * @phpcs:enable
      */
     public function getNullableBoolean(array $data, string $key, ?bool $defaultValue = null): ?bool
     {
@@ -150,7 +161,9 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     }
 
     /**
-     * @param array<string,scalar|null> $data
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+     * @param array<mixed> $data
+     * @phpcs:enable
      */
     public function getNullableFloat(array $data, string $key, ?float $defaultValue = null): ?float
     {
@@ -170,7 +183,9 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     }
 
     /**
-     * @param array<string,scalar|null> $data
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+     * @param array<mixed> $data
+     * @phpcs:enable
      */
     public function getNullableInt(array $data, string $key, ?int $defaultValue = null): ?int
     {
@@ -190,7 +205,9 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     }
 
     /**
-     * @param array<string,scalar|null> $data
+     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+     * @param array<mixed> $data
+     * @phpcs:enable
      */
     public function getNullableString(array $data, string $key, ?string $defaultValue = null): ?string
     {
@@ -207,5 +224,32 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
         }
 
         return $this->getString($data, $key, $defaultValue);
+    }
+
+    private function getTypeCastedFloatValue(mixed $value): float
+    {
+        if (!is_scalar($value)) {
+            throw new UnexpectedValueException('Value is not scalar, type casting is not possible.');
+        }
+
+        return (float) $value;
+    }
+
+    private function getTypeCastedIntValue(mixed $value): int
+    {
+        if (!is_scalar($value)) {
+            throw new UnexpectedValueException('Value is not scalar, type casting is not possible.');
+        }
+
+        return (int) $value;
+    }
+
+    private function getTypeCastedStringValue(mixed $value): string
+    {
+        if (!is_scalar($value)) {
+            throw new UnexpectedValueException('Value is not scalar, type casting is not possible.');
+        }
+
+        return (string) $value;
     }
 }
