@@ -12,7 +12,10 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
 {
     private const MESSAGE_VALUE_EMPTY = 'Data is empty.';
 
-    public function getNonEmptyFloat(mixed $value): float
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyFloat($value): float
     {
         $value = $this->getFloat($value);
 
@@ -23,7 +26,10 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $value;
     }
 
-    public function getNonEmptyInt(mixed $value): int
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyInt($value): int
     {
         $value = $this->getInt($value);
 
@@ -34,7 +40,10 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $value;
     }
 
-    public function getNonEmptyString(mixed $value): string
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyString($value): string
     {
         $value = $this->getString($value);
 
@@ -45,7 +54,10 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $value;
     }
 
-    public function getNonEmptyNullableFloat(mixed $value): ?float
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyNullableFloat($value): ?float
     {
         $value = $this->getNullableFloat($value);
 
@@ -56,7 +68,10 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $this->getNonEmptyFloat($value);
     }
 
-    public function getNonEmptyNullableInt(mixed $value): ?int
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyNullableInt($value): ?int
     {
         $value = $this->getNullableInt($value);
 
@@ -67,7 +82,10 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $this->getNonEmptyInt($value);
     }
 
-    public function getNonEmptyNullableString(mixed $value): ?string
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyNullableString($value): ?string
     {
         $value = $this->getNullableString($value);
 

@@ -18,12 +18,14 @@ use function sprintf;
 
 abstract class AbstractArrayDataExtractionService implements ArrayDataExtractionServiceInterface
 {
+    protected ScalarDataExtractionServiceInterface $scalarDataExtractionService;
+    protected ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService;
     private const MESSAGE_KEY_MISSING = 'Array does not contain key: %s.';
 
-    public function __construct(
-        protected ScalarDataExtractionServiceInterface $scalarDataExtractionService,
-        protected ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
-    ) {
+    public function __construct(ScalarDataExtractionServiceInterface $scalarDataExtractionService, ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService)
+    {
+        $this->scalarDataExtractionService = $scalarDataExtractionService;
+        $this->scalarNonEmptyDataExtractionService = $scalarNonEmptyDataExtractionService;
     }
 
     /**

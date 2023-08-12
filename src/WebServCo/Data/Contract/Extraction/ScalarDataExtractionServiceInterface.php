@@ -6,19 +6,43 @@ namespace WebServCo\Data\Contract\Extraction;
 
 interface ScalarDataExtractionServiceInterface
 {
-    public function getBoolean(mixed $value): bool;
+    /**
+     * @param mixed $value
+     */
+    public function getBoolean($value): bool;
 
-    public function getFloat(mixed $value): float;
+    /**
+     * @param mixed $value
+     */
+    public function getFloat($value): float;
 
-    public function getInt(mixed $value): int;
+    /**
+     * @param mixed $value
+     */
+    public function getInt($value): int;
 
-    public function getString(mixed $value): string;
+    /**
+     * @param mixed $value
+     */
+    public function getString($value): string;
 
-    public function getNullableBoolean(mixed $value): ?bool;
+    /**
+     * @param mixed $value
+     */
+    public function getNullableBoolean($value): ?bool;
 
-    public function getNullableFloat(mixed $value): ?float;
+    /**
+     * @param mixed $value
+     */
+    public function getNullableFloat($value): ?float;
 
-    public function getNullableInt(mixed $value): ?int;
+    /**
+     * @param mixed $value
+     */
+    public function getNullableInt($value): ?int;
 
-    public function getNullableString(mixed $value): ?string;
+    /**
+     * @param mixed $value
+     */
+    public function getNullableString($value): ?string;
 }

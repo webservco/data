@@ -12,10 +12,8 @@ use WebServCo\Data\Service\Extraction\AbstractArrayNonEmptyDataExtractionService
 final class StrictArrayNonEmptyDataExtractionService extends AbstractArrayNonEmptyDataExtractionService implements
     StrictArrayNonEmptyDataExtractionServiceInterface
 {
-    public function __construct(
-        StrictDataExtractionServiceInterface $scalarDataExtractionService,
-        StrictNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
-    ) {
+    public function __construct(StrictDataExtractionServiceInterface $scalarDataExtractionService, StrictNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService)
+    {
         parent::__construct($scalarDataExtractionService, $scalarNonEmptyDataExtractionService);
     }
 }
