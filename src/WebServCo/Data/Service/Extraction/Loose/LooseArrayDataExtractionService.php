@@ -12,10 +12,8 @@ use WebServCo\Data\Service\Extraction\AbstractArrayDataExtractionService;
 final class LooseArrayDataExtractionService extends AbstractArrayDataExtractionService implements
     LooseArrayDataExtractionServiceInterface
 {
-    public function __construct(
-        LooseDataExtractionServiceInterface $scalarDataExtractionService,
-        LooseNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
-    ) {
+    public function __construct(LooseDataExtractionServiceInterface $scalarDataExtractionService, LooseNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService)
+    {
         parent::__construct($scalarDataExtractionService, $scalarNonEmptyDataExtractionService);
     }
 }
