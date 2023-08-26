@@ -34,6 +34,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     public function getBoolean(array $data, string $key, ?bool $defaultValue = null): bool
     {
         if (!array_key_exists($key, $data)) {
+            // Because return type is not nullable, we can only return defaultValue if not null.
             if (is_bool($defaultValue)) {
                 return $defaultValue;
             }
@@ -52,6 +53,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     public function getFloat(array $data, string $key, ?float $defaultValue = null): float
     {
         if (!array_key_exists($key, $data)) {
+            // Because return type is not nullable, we can only return defaultValue if not null.
             if (is_float($defaultValue)) {
                 return $defaultValue;
             }
@@ -70,6 +72,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     public function getInt(array $data, string $key, ?int $defaultValue = null): int
     {
         if (!array_key_exists($key, $data)) {
+            // Because return type is not nullable, we can only return defaultValue if not null.
             if (is_int($defaultValue)) {
                 return $defaultValue;
             }
@@ -88,6 +91,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     public function getString(array $data, string $key, ?string $defaultValue = null): string
     {
         if (!array_key_exists($key, $data)) {
+            // Because return type is not nullable, we can only return defaultValue if not null.
             if (is_string($defaultValue)) {
                 return $defaultValue;
             }
@@ -106,11 +110,8 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     public function getNullableBoolean(array $data, string $key, ?bool $defaultValue = null): ?bool
     {
         if (!array_key_exists($key, $data)) {
-            if (is_bool($defaultValue)) {
-                return $defaultValue;
-            }
-
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
+            // Since return type is nullable, we can simply return whatever the defaultValue is.
+            return $defaultValue;
         }
 
         return $this->scalarDataExtractionService->getNullableBoolean($data[$key]);
@@ -124,11 +125,8 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     public function getNullableFloat(array $data, string $key, ?float $defaultValue = null): ?float
     {
         if (!array_key_exists($key, $data)) {
-            if (is_float($defaultValue)) {
-                return $defaultValue;
-            }
-
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
+            // Since return type is nullable, we can simply return whatever the defaultValue is.
+            return $defaultValue;
         }
 
         return $this->scalarDataExtractionService->getNullableFloat($data[$key]);
@@ -142,11 +140,8 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     public function getNullableInt(array $data, string $key, ?int $defaultValue = null): ?int
     {
         if (!array_key_exists($key, $data)) {
-            if (is_int($defaultValue)) {
-                return $defaultValue;
-            }
-
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
+            // Since return type is nullable, we can simply return whatever the defaultValue is.
+            return $defaultValue;
         }
 
         return $this->scalarDataExtractionService->getNullableInt($data[$key]);
@@ -160,11 +155,8 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     public function getNullableString(array $data, string $key, ?string $defaultValue = null): ?string
     {
         if (!array_key_exists($key, $data)) {
-            if (is_string($defaultValue)) {
-                return $defaultValue;
-            }
-
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
+            // Since return type is nullable, we can simply return whatever the defaultValue is.
+            return $defaultValue;
         }
 
         return $this->scalarDataExtractionService->getNullableString($data[$key]);
