@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WebServCo\Data\Service\Extraction\Loose;
 
+use WebServCo\Data\Contract\Extraction\ArrayStorageServiceInterface;
 use WebServCo\Data\Contract\Extraction\Loose\LooseArrayNonEmptyDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\Loose\LooseDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\Loose\LooseNonEmptyDataExtractionServiceInterface;
@@ -13,9 +14,10 @@ final class LooseArrayNonEmptyDataExtractionService extends AbstractArrayNonEmpt
     LooseArrayNonEmptyDataExtractionServiceInterface
 {
     public function __construct(
+        ?ArrayStorageServiceInterface $arrayStorageService,
         LooseDataExtractionServiceInterface $scalarDataExtractionService,
         LooseNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
     ) {
-        parent::__construct($scalarDataExtractionService, $scalarNonEmptyDataExtractionService);
+        parent::__construct($arrayStorageService, $scalarDataExtractionService, $scalarNonEmptyDataExtractionService);
     }
 }

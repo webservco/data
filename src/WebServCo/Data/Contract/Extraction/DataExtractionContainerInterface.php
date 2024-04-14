@@ -15,6 +15,8 @@ use WebServCo\Data\Contract\Extraction\Strict\StrictNonEmptyDataExtractionServic
 
 interface DataExtractionContainerInterface
 {
+    public function getArrayStorageService(): ?ArrayStorageServiceInterface;
+
     public function getLooseArrayDataExtractionService(): LooseArrayDataExtractionServiceInterface;
 
     public function getLooseArrayNonEmptyDataExtractionService(): LooseArrayNonEmptyDataExtractionServiceInterface;

@@ -9,10 +9,10 @@ use WebServCo\Data\Contract\Extraction\ArrayNonEmptyDataExtractionServiceInterfa
 abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayDataExtractionService implements
     ArrayNonEmptyDataExtractionServiceInterface
 {
+    // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNonEmptyFloat(array $data, string $key, ?float $defaultValue = null): float
     {
@@ -22,9 +22,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNonEmptyInt(array $data, string $key, ?int $defaultValue = null): int
     {
@@ -34,9 +32,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNonEmptyString(array $data, string $key, ?string $defaultValue = null): string
     {
@@ -46,9 +42,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNonEmptyNullableFloat(array $data, string $key, ?float $defaultValue = null): ?float
     {
@@ -58,9 +52,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNonEmptyNullableInt(array $data, string $key, ?int $defaultValue = null): ?int
     {
@@ -70,9 +62,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNonEmptyNullableString(array $data, string $key, ?string $defaultValue = null): ?string
     {
@@ -80,4 +70,6 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
 
         return $this->scalarNonEmptyDataExtractionService->getNonEmptyNullableString($value);
     }
+
+    // @phpcs:enable
 }

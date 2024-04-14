@@ -6,6 +6,7 @@ namespace WebServCo\Data\Service\Extraction;
 
 use OutOfBoundsException;
 use WebServCo\Data\Contract\Extraction\ArrayDataExtractionServiceInterface;
+use WebServCo\Data\Contract\Extraction\ArrayStorageServiceInterface;
 use WebServCo\Data\Contract\Extraction\ScalarDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\ScalarNonEmptyDataExtractionServiceInterface;
 
@@ -18,147 +19,237 @@ use function sprintf;
 
 abstract class AbstractArrayDataExtractionService implements ArrayDataExtractionServiceInterface
 {
-    private const MESSAGE_KEY_MISSING = 'Array does not contain key: %s.';
+    private const MESSAGE_ERROR = 'Data not found, or wrong type: "%s".';
 
     public function __construct(
+        private ?ArrayStorageServiceInterface $arrayStorageService,
         protected ScalarDataExtractionServiceInterface $scalarDataExtractionService,
         protected ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
     ) {
     }
 
+    // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getBoolean(array $data, string $key, ?bool $defaultValue = null): bool
     {
-        if (!array_key_exists($key, $data)) {
+        /**
+         * Psalm error: "Unable to determine the type that $.. is being assigned to"
+         * However this is indeed mixed, no solution but to suppress error.
+         *
+         * @psalm-suppress MixedAssignment
+         */
+        $value = $this->getValueFromData($data, $key, $defaultValue);
+
+        /**
+         * No result from simple array, or null result from array storage (if not found, returns defaultValue)
+         *
+         * Important: array storage can return valid null value (found, and null),
+         * in that case it would not be 100% accurate to return default value if value is null
+         * (default can be one value and actual value another).
+         * However since this is non-null functionality, the end result is the same.
+         */
+        if ($value === null) {
             // Because return type is not nullable, we can only return defaultValue if not null.
             if (is_bool($defaultValue)) {
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_ERROR, $key));
         }
 
-        return $this->scalarDataExtractionService->getBoolean($data[$key]);
+        return $this->scalarDataExtractionService->getBoolean($value);
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getFloat(array $data, string $key, ?float $defaultValue = null): float
     {
-        if (!array_key_exists($key, $data)) {
+        /**
+         * Psalm error: "Unable to determine the type that $.. is being assigned to"
+         * However this is indeed mixed, no solution but to suppress error.
+         *
+         * @psalm-suppress MixedAssignment
+         */
+        $value = $this->getValueFromData($data, $key, $defaultValue);
+
+        /**
+         * No result from simple array, or null result from array storage (if not found, returns defaultValue)
+         *
+         * Important: array storage can return valid null value (found, and null),
+         * in that case it would not be 100% accurate to return default value if value is null
+         * (default can be one value and actual value another).
+         * However since this is non-null functionality, the end result is the same.
+         */
+        if ($value === null) {
             // Because return type is not nullable, we can only return defaultValue if not null.
             if (is_float($defaultValue)) {
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_ERROR, $key));
         }
 
-        return $this->scalarDataExtractionService->getFloat($data[$key]);
+        return $this->scalarDataExtractionService->getFloat($value);
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getInt(array $data, string $key, ?int $defaultValue = null): int
     {
-        if (!array_key_exists($key, $data)) {
+        /**
+         * Psalm error: "Unable to determine the type that $.. is being assigned to"
+         * However this is indeed mixed, no solution but to suppress error.
+         *
+         * @psalm-suppress MixedAssignment
+         */
+        $value = $this->getValueFromData($data, $key, $defaultValue);
+
+        /**
+         * No result from simple array, or null result from array storage (if not found, returns defaultValue)
+         *
+         * Important: array storage can return valid null value (found, and null),
+         * in that case it would not be 100% accurate to return default value if value is null
+         * (default can be one value and actual value another).
+         * However since this is non-null functionality, the end result is the same.
+         */
+        if ($value === null) {
             // Because return type is not nullable, we can only return defaultValue if not null.
             if (is_int($defaultValue)) {
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_ERROR, $key));
         }
 
-        return $this->scalarDataExtractionService->getInt($data[$key]);
+        return $this->scalarDataExtractionService->getInt($value);
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getString(array $data, string $key, ?string $defaultValue = null): string
     {
-        if (!array_key_exists($key, $data)) {
+        /**
+         * Psalm error: "Unable to determine the type that $.. is being assigned to"
+         * However this is indeed mixed, no solution but to suppress error.
+         *
+         * @psalm-suppress MixedAssignment
+         */
+        $value = $this->getValueFromData($data, $key, $defaultValue);
+
+        /**
+         * No result from simple array, or null result from array storage (if not found, returns defaultValue)
+         *
+         * Important: array storage can return valid null value (found, and null),
+         * in that case it would not be 100% accurate to return default value if value is null
+         * (default can be one value and actual value another).
+         * However since this is non-null functionality, the end result is the same.
+         */
+        if ($value === null) {
             // Because return type is not nullable, we can only return defaultValue if not null.
             if (is_string($defaultValue)) {
                 return $defaultValue;
             }
 
-            throw new OutOfBoundsException(sprintf(self::MESSAGE_KEY_MISSING, $key));
+            throw new OutOfBoundsException(sprintf(self::MESSAGE_ERROR, $key));
         }
 
-        return $this->scalarDataExtractionService->getString($data[$key]);
+        return $this->scalarDataExtractionService->getString($value);
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNullableBoolean(array $data, string $key, ?bool $defaultValue = null): ?bool
     {
-        if (!array_key_exists($key, $data)) {
-            // Since return type is nullable, we can simply return whatever the defaultValue is.
-            return $defaultValue;
-        }
+        /**
+         * Psalm error: "Unable to determine the type that $.. is being assigned to"
+         * However this is indeed mixed, no solution but to suppress error.
+         *
+         * @psalm-suppress MixedAssignment
+         */
+        $value = $this->getValueFromData($data, $key, $defaultValue);
 
-        return $this->scalarDataExtractionService->getNullableBoolean($data[$key]);
+        // No other checks here since nullable.
+
+        return $this->scalarDataExtractionService->getNullableBoolean($value);
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNullableFloat(array $data, string $key, ?float $defaultValue = null): ?float
     {
-        if (!array_key_exists($key, $data)) {
-            // Since return type is nullable, we can simply return whatever the defaultValue is.
-            return $defaultValue;
-        }
+        /**
+         * Psalm error: "Unable to determine the type that $.. is being assigned to"
+         * However this is indeed mixed, no solution but to suppress error.
+         *
+         * @psalm-suppress MixedAssignment
+         */
+        $value = $this->getValueFromData($data, $key, $defaultValue);
 
-        return $this->scalarDataExtractionService->getNullableFloat($data[$key]);
+        // No other checks here since nullable.
+
+        return $this->scalarDataExtractionService->getNullableFloat($value);
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNullableInt(array $data, string $key, ?int $defaultValue = null): ?int
     {
-        if (!array_key_exists($key, $data)) {
-            // Since return type is nullable, we can simply return whatever the defaultValue is.
-            return $defaultValue;
-        }
+        /**
+         * Psalm error: "Unable to determine the type that $.. is being assigned to"
+         * However this is indeed mixed, no solution but to suppress error.
+         *
+         * @psalm-suppress MixedAssignment
+         */
+        $value = $this->getValueFromData($data, $key, $defaultValue);
 
-        return $this->scalarDataExtractionService->getNullableInt($data[$key]);
+        // No other checks here since nullable.
+
+        return $this->scalarDataExtractionService->getNullableInt($value);
     }
 
     /**
-     * @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
      * @param array<mixed> $data
-     * @phpcs:enable
      */
     public function getNullableString(array $data, string $key, ?string $defaultValue = null): ?string
     {
-        if (!array_key_exists($key, $data)) {
-            // Since return type is nullable, we can simply return whatever the defaultValue is.
-            return $defaultValue;
+        /**
+         * Psalm error: "Unable to determine the type that $.. is being assigned to"
+         * However this is indeed mixed, no solution but to suppress error.
+         *
+         * @psalm-suppress MixedAssignment
+         */
+        $value = $this->getValueFromData($data, $key, $defaultValue);
+
+        // No other checks here since nullable.
+
+        return $this->scalarDataExtractionService->getNullableString($value);
+    }
+
+    /**
+     * @param array<mixed> $data
+     */
+    private function getValueFromData(array $data, string $key, mixed $defaultValue = null): mixed
+    {
+        if ($this->arrayStorageService !== null) {
+            return $this->arrayStorageService->get($data, $this->arrayStorageService->parseKey($key), $defaultValue);
         }
 
-        return $this->scalarDataExtractionService->getNullableString($data[$key]);
+
+        if (array_key_exists($key, $data)) {
+            return $data[$key];
+        }
+
+        return null;
     }
+
+    // @phpcs:enable
 }

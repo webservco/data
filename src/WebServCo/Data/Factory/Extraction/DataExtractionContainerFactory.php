@@ -10,8 +10,8 @@ use WebServCo\Data\Contract\Extraction\DataExtractionContainerInterface;
 
 final class DataExtractionContainerFactory implements DataExtractionContainerFactoryInterface
 {
-    public function createDataExtractionContainer(): DataExtractionContainerInterface
+    public function createDataExtractionContainer(bool $useArrayStorageService): DataExtractionContainerInterface
     {
-        return new DataExtractionContainer();
+        return new DataExtractionContainer($useArrayStorageService);
     }
 }

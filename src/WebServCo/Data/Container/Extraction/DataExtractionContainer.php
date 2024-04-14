@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WebServCo\Data\Container\Extraction;
 
+use WebServCo\Data\Contract\Extraction\ArrayStorageServiceInterface;
 use WebServCo\Data\Contract\Extraction\DataExtractionContainerInterface;
 use WebServCo\Data\Contract\Extraction\Loose\LooseArrayDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\Loose\LooseArrayNonEmptyDataExtractionServiceInterface;
@@ -13,6 +14,7 @@ use WebServCo\Data\Contract\Extraction\Strict\StrictArrayDataExtractionServiceIn
 use WebServCo\Data\Contract\Extraction\Strict\StrictArrayNonEmptyDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\Strict\StrictDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\Strict\StrictNonEmptyDataExtractionServiceInterface;
+use WebServCo\Data\Service\Extraction\ArrayStorageService;
 use WebServCo\Data\Service\Extraction\Loose\LooseArrayDataExtractionService;
 use WebServCo\Data\Service\Extraction\Loose\LooseArrayNonEmptyDataExtractionService;
 use WebServCo\Data\Service\Extraction\Loose\LooseDataExtractionService;
@@ -32,6 +34,7 @@ use WebServCo\Data\Service\Extraction\Strict\StrictNonEmptyDataExtractionService
  */
 final class DataExtractionContainer implements DataExtractionContainerInterface
 {
+    private ?ArrayStorageServiceInterface $arrayStorageService = null;
     private ?LooseArrayDataExtractionServiceInterface $looseArrayDataExtractionService = null;
     private ?LooseArrayNonEmptyDataExtractionServiceInterface $looseArrayNonEmptyDataExtractionService = null;
     private ?StrictArrayDataExtractionServiceInterface $strictArrayDataExtractionService = null;
@@ -41,10 +44,28 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
     private ?StrictDataExtractionServiceInterface $strictDataExtractionService = null;
     private ?StrictNonEmptyDataExtractionServiceInterface $strictNonEmptyDataExtractionService = null;
 
+    public function __construct(private bool $useArrayStorageService)
+    {
+    }
+
+    public function getArrayStorageService(): ?ArrayStorageServiceInterface
+    {
+        if ($this->useArrayStorageService === false) {
+            return null;
+        }
+
+        if ($this->arrayStorageService === null) {
+            $this->arrayStorageService = new ArrayStorageService();
+        }
+
+        return $this->arrayStorageService;
+    }
+
     public function getLooseArrayDataExtractionService(): LooseArrayDataExtractionServiceInterface
     {
         if ($this->looseArrayDataExtractionService === null) {
             $this->looseArrayDataExtractionService = new LooseArrayDataExtractionService(
+                $this->getArrayStorageService(),
                 $this->getLooseDataExtractionService(),
                 $this->getLooseNonEmptyDataExtractionService(),
             );
@@ -57,6 +78,7 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
     {
         if ($this->looseArrayNonEmptyDataExtractionService === null) {
             $this->looseArrayNonEmptyDataExtractionService = new LooseArrayNonEmptyDataExtractionService(
+                $this->getArrayStorageService(),
                 $this->getLooseDataExtractionService(),
                 $this->getLooseNonEmptyDataExtractionService(),
             );
@@ -69,6 +91,7 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
     {
         if ($this->strictArrayDataExtractionService === null) {
             $this->strictArrayDataExtractionService = new StrictArrayDataExtractionService(
+                $this->getArrayStorageService(),
                 $this->getStrictDataExtractionService(),
                 $this->getStrictNonEmptyDataExtractionService(),
             );
@@ -81,6 +104,7 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
     {
         if ($this->strictArrayNonEmptyDataExtractionService === null) {
             $this->strictArrayNonEmptyDataExtractionService = new StrictArrayNonEmptyDataExtractionService(
+                $this->getArrayStorageService(),
                 $this->getStrictDataExtractionService(),
                 $this->getStrictNonEmptyDataExtractionService(),
             );

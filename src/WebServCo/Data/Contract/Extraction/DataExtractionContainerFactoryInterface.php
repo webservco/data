@@ -6,5 +6,5 @@ namespace WebServCo\Data\Contract\Extraction;
 
 interface DataExtractionContainerFactoryInterface
 {
-    public function createDataExtractionContainer(): DataExtractionContainerInterface;
+    public function createDataExtractionContainer(bool $useArrayStorageService): DataExtractionContainerInterface;
 }
