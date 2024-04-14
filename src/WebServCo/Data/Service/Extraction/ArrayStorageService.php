@@ -20,20 +20,20 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
     /**
      * @param array<mixed> $data
      * @param array<int,string> $keys
+     * @param mixed $defaultValue
+     * @return mixed
      */
     // phpcs:ignore SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh
-    public function get(array $data, array $keys, mixed $defaultValue,): mixed
+    public function get(array $data, array $keys, $defaultValue)
     {
         // Handle empty storage.
         if ($data === []) {
             return $defaultValue;
         }
-
         // Handle empty keys.
         if ($keys === []) {
             return $defaultValue;
         }
-
         // Check first element.
         if (array_key_exists(0, $keys) && array_key_exists($keys[0], $data)) {
             // Remove first element.
@@ -55,7 +55,6 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
                 return $this->get($data[$currentKey], $keys, $defaultValue);
             }
         }
-
         // If we arrive here, data is not found.
         return $defaultValue;
     }
