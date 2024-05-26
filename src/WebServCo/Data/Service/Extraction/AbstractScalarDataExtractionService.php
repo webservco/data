@@ -75,7 +75,8 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
 
     public function getNullableBoolean(mixed $value): ?bool
     {
-        if ($value === null) {
+        // Since value should not be a string, we will consider empty string as null.
+        if ($value === null || $value === '') {
             return null;
         }
 
@@ -84,7 +85,8 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
 
     public function getNullableFloat(mixed $value): ?float
     {
-        if ($value === null) {
+        // Since value should not be a string, we will consider empty string as null.
+        if ($value === null || $value === '') {
             return null;
         }
 
@@ -93,7 +95,8 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
 
     public function getNullableInt(mixed $value): ?int
     {
-        if ($value === null) {
+        // Since value should not be a string, we will consider empty string as null.
+        if ($value === null || $value === '') {
             return null;
         }
 
