@@ -62,3 +62,9 @@ composer check:phpcs && composer check:phpstan && composer check:phpmd && compos
 ```shell
 composer test:dox
 ```
+
+---
+
+## Demo
+
+- `public/index.php`
