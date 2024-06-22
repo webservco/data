@@ -19,13 +19,16 @@ use function sprintf;
 
 abstract class AbstractArrayDataExtractionService implements ArrayDataExtractionServiceInterface
 {
+    private ?ArrayStorageServiceInterface $arrayStorageService;
+    protected ScalarDataExtractionServiceInterface $scalarDataExtractionService;
+    protected ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService;
     private const MESSAGE_ERROR = 'Data not found, or wrong type: "%s".';
 
-    public function __construct(
-        private ?ArrayStorageServiceInterface $arrayStorageService,
-        protected ScalarDataExtractionServiceInterface $scalarDataExtractionService,
-        protected ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
-    ) {
+    public function __construct(?ArrayStorageServiceInterface $arrayStorageService, ScalarDataExtractionServiceInterface $scalarDataExtractionService, ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService)
+    {
+        $this->arrayStorageService = $arrayStorageService;
+        $this->scalarDataExtractionService = $scalarDataExtractionService;
+        $this->scalarNonEmptyDataExtractionService = $scalarNonEmptyDataExtractionService;
     }
 
     // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
@@ -236,8 +239,10 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
 
     /**
      * @param array<mixed> $data
+     * @param mixed $defaultValue
+     * @return mixed
      */
-    private function getValueFromData(array $data, string $key, mixed $defaultValue = null): mixed
+    private function getValueFromData(array $data, string $key, $defaultValue = null)
     {
         if ($this->arrayStorageService !== null) {
             return $this->arrayStorageService->get($data, $this->arrayStorageService->parseKey($key), $defaultValue);

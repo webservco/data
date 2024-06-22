@@ -13,11 +13,8 @@ use WebServCo\Data\Service\Extraction\AbstractArrayDataExtractionService;
 final class StrictArrayDataExtractionService extends AbstractArrayDataExtractionService implements
     StrictArrayDataExtractionServiceInterface
 {
-    public function __construct(
-        ?ArrayStorageServiceInterface $arrayStorageService,
-        StrictDataExtractionServiceInterface $scalarDataExtractionService,
-        StrictNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
-    ) {
+    public function __construct(?ArrayStorageServiceInterface $arrayStorageService, StrictDataExtractionServiceInterface $scalarDataExtractionService, StrictNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService)
+    {
         parent::__construct($arrayStorageService, $scalarDataExtractionService, $scalarNonEmptyDataExtractionService);
     }
 }
