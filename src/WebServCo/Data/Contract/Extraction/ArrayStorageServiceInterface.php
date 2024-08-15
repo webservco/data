@@ -12,7 +12,7 @@ interface ArrayStorageServiceInterface
      * @param array<mixed> $data
      * @param array<int,string> $keys
      */
-    public function get(array $data, array $keys, mixed $defaultValue,): mixed;
+    public function get(array $data, array $keys, mixed $defaultValue): mixed;
 
     /**
      * @param array<mixed> $data

@@ -22,7 +22,7 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
      * @param array<int,string> $keys
      */
     // phpcs:ignore SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh
-    public function get(array $data, array $keys, mixed $defaultValue,): mixed
+    public function get(array $data, array $keys, mixed $defaultValue): mixed
     {
         // Handle empty storage.
         if ($data === []) {
