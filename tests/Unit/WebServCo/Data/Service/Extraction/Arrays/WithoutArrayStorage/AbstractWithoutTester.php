@@ -10,7 +10,7 @@ use WebServCo\Data\Factory\Extraction\DataExtractionContainerFactory;
 
 abstract class AbstractWithoutTester extends TestCase
 {
-    private const USE_ARRAY_STORAGE_SERVICE = false;
+    private const bool USE_ARRAY_STORAGE_SERVICE = false;
 
     private ?DataExtractionContainerInterface $dataExtractionContainer = null;
 
