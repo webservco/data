@@ -18,12 +18,12 @@ final class ArrayStorageServiceGetTest extends AbstractArrayStorageServiceTester
 
         // Test.
 
-        /**
-         * Psalm error: "Unable to determine the type that $.. is being assigned to"
-         * However this is indeed mixed, no solution but to suppress error.
-         *
-         * @psalm-suppress MixedAssignment
-         */
+                    /**
+                     * Psalm error: "Unable to determine the type that $.. is being assigned to"
+                     * However this is indeed mixed, no solution but to suppress error.
+                     *
+                     * @psalm-suppress MixedAssignment
+                     */
         $result = $this->getService()->get(self::ARRAY_EMPTY, self::KEYS_ONE, self::ARRAY_EMPTY);
 
         self::assertSame(self::ARRAY_EMPTY, $result);
