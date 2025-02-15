@@ -9,7 +9,7 @@ use WebServCo\Data\Contract\Extraction\DataExtractionContainerInterface;
 use WebServCo\Data\Factory\Extraction\DataExtractionContainerFactory;
 
 /**
- * @SuppressWarnings(PHPMD.NumberOfChildren)
+ * @SuppressWarnings("PHPMD.NumberOfChildren")
  */
 abstract class AbstractWithTester extends TestCase
 {
