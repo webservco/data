@@ -6,8 +6,16 @@ namespace Tests\Unit\Assets\Traits;
 
 trait JsonApiDataTrait
 {
-    // @phpcs:ignore SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
-    private const JSONAPI_DATA = [
+    /**
+     * PHPCompatibility: false positive:
+     * "Function name, class name, namespace name or constant name
+     * can not be reserved keyword 'array' (since version all)"
+     * However syntax is correct: https://php.watch/versions/8.3/typed-constants
+     *
+     * @phpcs:disable PHPCompatibility.Keywords.ForbiddenNames.arrayFound
+     * @phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
+     */
+    private const array JSONAPI_DATA = [
         'jsonapi' => [
             'version' => '1.1',
         ],
@@ -36,4 +44,5 @@ trait JsonApiDataTrait
             'version' => 'v1',
         ],
     ];
+    /** @phpcs:enable */
 }

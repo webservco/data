@@ -15,7 +15,7 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
 {
     // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
 
-    private const DIVIDER = '/';
+    private const string DIVIDER = '/';
 
     /**
      * @param array<mixed> $data

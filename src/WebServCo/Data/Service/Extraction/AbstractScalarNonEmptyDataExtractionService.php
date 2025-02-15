@@ -10,7 +10,7 @@ use WebServCo\Data\Contract\Extraction\ScalarNonEmptyDataExtractionServiceInterf
 abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScalarDataExtractionService implements
     ScalarNonEmptyDataExtractionServiceInterface
 {
-    private const MESSAGE_VALUE_EMPTY = 'Data is empty.';
+    private const string MESSAGE_VALUE_EMPTY = 'Data is empty.';
 
     public function getNonEmptyFloat(mixed $value): float
     {

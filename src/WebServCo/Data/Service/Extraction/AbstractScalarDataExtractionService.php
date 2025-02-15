@@ -15,7 +15,7 @@ use function is_string;
 
 abstract class AbstractScalarDataExtractionService implements ScalarDataExtractionServiceInterface
 {
-    private const MESSAGE_VALUE_TYPE_DIFFERENT = 'Data type is different than expected.';
+    private const string MESSAGE_VALUE_TYPE_DIFFERENT = 'Data type is different than expected.';
 
     public function __construct(private bool $useTypeCasting)
     {

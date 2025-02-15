@@ -19,7 +19,7 @@ use function sprintf;
 
 abstract class AbstractArrayDataExtractionService implements ArrayDataExtractionServiceInterface
 {
-    private const MESSAGE_ERROR = 'Data not found, or wrong type: "%s".';
+    private const string MESSAGE_ERROR = 'Data not found, or wrong type: "%s".';
 
     public function __construct(
         private ?ArrayStorageServiceInterface $arrayStorageService,
