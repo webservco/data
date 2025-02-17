@@ -8,6 +8,12 @@ use PHPUnit\Framework\TestCase;
 use WebServCo\Data\Contract\Extraction\ArrayStorageServiceInterface;
 use WebServCo\Data\Service\Extraction\ArrayStorageService;
 
+/**
+ * PhanRedefinedExtendedClass
+ * "[..] extends abstract Class [..] declared at [..] which is also declared at [..]"
+ *
+ * @suppress PhanRedefinedExtendedClass
+ */
 abstract class AbstractArrayStorageServiceTester extends TestCase
 {
     protected const string ABC_KEY = 'a/b/c';

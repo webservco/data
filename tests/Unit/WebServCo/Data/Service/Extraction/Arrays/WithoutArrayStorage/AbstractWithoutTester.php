@@ -8,6 +8,12 @@ use PHPUnit\Framework\TestCase;
 use WebServCo\Data\Contract\Extraction\DataExtractionContainerInterface;
 use WebServCo\Data\Factory\Extraction\DataExtractionContainerFactory;
 
+/**
+ * PhanRedefinedExtendedClass
+ * "[..] extends abstract Class [..] declared at [..] which is also declared at [..]"
+ *
+ * @suppress PhanRedefinedExtendedClass
+ */
 abstract class AbstractWithoutTester extends TestCase
 {
     private const bool USE_ARRAY_STORAGE_SERVICE = false;

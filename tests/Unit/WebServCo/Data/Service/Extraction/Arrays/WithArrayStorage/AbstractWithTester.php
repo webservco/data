@@ -9,6 +9,10 @@ use WebServCo\Data\Contract\Extraction\DataExtractionContainerInterface;
 use WebServCo\Data\Factory\Extraction\DataExtractionContainerFactory;
 
 /**
+ * PhanRedefinedExtendedClass
+ * "[..] extends abstract Class [..] declared at [..] which is also declared at [..]"
+ *
+ * @suppress PhanRedefinedExtendedClass
  * @SuppressWarnings("PHPMD.NumberOfChildren")
  */
 abstract class AbstractWithTester extends TestCase
