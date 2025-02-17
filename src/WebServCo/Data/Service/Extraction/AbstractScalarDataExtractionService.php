@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WebServCo\Data\Service\Extraction;
 
+use Override;
 use UnexpectedValueException;
 use WebServCo\Data\Contract\Extraction\ScalarDataExtractionServiceInterface;
 
@@ -21,6 +22,7 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
     {
     }
 
+    #[Override]
     public function getBoolean(mixed $value): bool
     {
         if ($this->useTypeCasting) {
@@ -34,6 +36,7 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return $value;
     }
 
+    #[Override]
     public function getFloat(mixed $value): float
     {
         if ($this->useTypeCasting) {
@@ -47,6 +50,7 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return $value;
     }
 
+    #[Override]
     public function getInt(mixed $value): int
     {
         if ($this->useTypeCasting) {
@@ -60,6 +64,7 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return $value;
     }
 
+    #[Override]
     public function getString(mixed $value): string
     {
         if ($this->useTypeCasting) {
@@ -73,6 +78,7 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return $value;
     }
 
+    #[Override]
     public function getNullableBoolean(mixed $value): ?bool
     {
         // Since value should not be a string, we will consider empty string as null.
@@ -83,6 +89,7 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return $this->getBoolean($value);
     }
 
+    #[Override]
     public function getNullableFloat(mixed $value): ?float
     {
         // Since value should not be a string, we will consider empty string as null.
@@ -93,6 +100,7 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return $this->getFloat($value);
     }
 
+    #[Override]
     public function getNullableInt(mixed $value): ?int
     {
         // Since value should not be a string, we will consider empty string as null.
@@ -103,6 +111,7 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return $this->getInt($value);
     }
 
+    #[Override]
     public function getNullableString(mixed $value): ?string
     {
         if ($value === null) {

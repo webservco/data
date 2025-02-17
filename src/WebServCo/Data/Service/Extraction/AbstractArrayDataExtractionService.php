@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace WebServCo\Data\Service\Extraction;
 
 use OutOfBoundsException;
+use Override;
 use WebServCo\Data\Contract\Extraction\ArrayDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\ArrayStorageServiceInterface;
 use WebServCo\Data\Contract\Extraction\ScalarDataExtractionServiceInterface;
@@ -33,6 +34,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getBoolean(array $data, string $key, ?bool $defaultValue = null): bool
     {
         /**
@@ -66,6 +68,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getFloat(array $data, string $key, ?float $defaultValue = null): float
     {
         /**
@@ -99,6 +102,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getInt(array $data, string $key, ?int $defaultValue = null): int
     {
         /**
@@ -132,6 +136,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getString(array $data, string $key, ?string $defaultValue = null): string
     {
         /**
@@ -165,6 +170,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNullableBoolean(array $data, string $key, ?bool $defaultValue = null): ?bool
     {
         /**
@@ -183,6 +189,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNullableFloat(array $data, string $key, ?float $defaultValue = null): ?float
     {
         /**
@@ -201,6 +208,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNullableInt(array $data, string $key, ?int $defaultValue = null): ?int
     {
         /**
@@ -219,6 +227,7 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNullableString(array $data, string $key, ?string $defaultValue = null): ?string
     {
         /**

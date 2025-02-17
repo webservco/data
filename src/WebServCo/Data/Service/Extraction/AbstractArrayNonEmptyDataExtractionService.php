@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WebServCo\Data\Service\Extraction;
 
+use Override;
 use WebServCo\Data\Contract\Extraction\ArrayNonEmptyDataExtractionServiceInterface;
 
 abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayDataExtractionService implements
@@ -14,6 +15,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNonEmptyFloat(array $data, string $key, ?float $defaultValue = null): float
     {
         $value = $this->getFloat($data, $key, $defaultValue);
@@ -24,6 +26,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNonEmptyInt(array $data, string $key, ?int $defaultValue = null): int
     {
         $value = $this->getInt($data, $key, $defaultValue);
@@ -34,6 +37,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNonEmptyString(array $data, string $key, ?string $defaultValue = null): string
     {
         $value = $this->getString($data, $key, $defaultValue);
@@ -44,6 +48,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNonEmptyNullableFloat(array $data, string $key, ?float $defaultValue = null): ?float
     {
         $value = $this->getNullableFloat($data, $key, $defaultValue);
@@ -54,6 +59,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNonEmptyNullableInt(array $data, string $key, ?int $defaultValue = null): ?int
     {
         $value = $this->getNullableInt($data, $key, $defaultValue);
@@ -64,6 +70,7 @@ abstract class AbstractArrayNonEmptyDataExtractionService extends AbstractArrayD
     /**
      * @param array<mixed> $data
      */
+    #[Override]
     public function getNonEmptyNullableString(array $data, string $key, ?string $defaultValue = null): ?string
     {
         $value = $this->getNullableString($data, $key, $defaultValue);

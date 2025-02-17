@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WebServCo\Data\Service\Extraction;
 
+use Override;
 use WebServCo\Data\Contract\Extraction\ArrayStorageServiceInterface;
 
 use function array_key_exists;
@@ -20,8 +21,9 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
     /**
      * @param array<mixed> $data
      * @param array<int,string> $keys
+     * @phpcs:disable SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh
      */
-    // phpcs:ignore SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh
+    #[Override]
     public function get(array $data, array $keys, mixed $defaultValue): mixed
     {
         // Handle empty storage.
@@ -66,6 +68,7 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
      * @param array<mixed> $defaultValue
      * @return array<mixed>
      */
+    #[Override]
     public function getArray(array $data, array $keys, array $defaultValue = []): array
     {
         $result = $this->get($data, $keys, $defaultValue);
@@ -76,10 +79,12 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
 
         return $result;
     }
+    // @phpcs:enable
 
     /**
      * @return array<int,string>
      */
+    #[Override]
     public function parseKey(string $key): array
     {
         return explode(self::DIVIDER, $key);

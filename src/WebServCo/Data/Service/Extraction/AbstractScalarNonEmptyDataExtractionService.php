@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WebServCo\Data\Service\Extraction;
 
+use Override;
 use UnexpectedValueException;
 use WebServCo\Data\Contract\Extraction\ScalarNonEmptyDataExtractionServiceInterface;
 
@@ -12,6 +13,7 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
 {
     private const string MESSAGE_VALUE_EMPTY = 'Data is empty.';
 
+    #[Override]
     public function getNonEmptyFloat(mixed $value): float
     {
         $value = $this->getFloat($value);
@@ -23,6 +25,7 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $value;
     }
 
+    #[Override]
     public function getNonEmptyInt(mixed $value): int
     {
         $value = $this->getInt($value);
@@ -34,6 +37,7 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $value;
     }
 
+    #[Override]
     public function getNonEmptyString(mixed $value): string
     {
         $value = $this->getString($value);
@@ -45,6 +49,7 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $value;
     }
 
+    #[Override]
     public function getNonEmptyNullableFloat(mixed $value): ?float
     {
         $value = $this->getNullableFloat($value);
@@ -56,6 +61,7 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $this->getNonEmptyFloat($value);
     }
 
+    #[Override]
     public function getNonEmptyNullableInt(mixed $value): ?int
     {
         $value = $this->getNullableInt($value);
@@ -67,6 +73,7 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $this->getNonEmptyInt($value);
     }
 
+    #[Override]
     public function getNonEmptyNullableString(mixed $value): ?string
     {
         $value = $this->getNullableString($value);
