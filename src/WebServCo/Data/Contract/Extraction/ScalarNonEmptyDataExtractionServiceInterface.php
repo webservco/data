@@ -6,15 +6,33 @@ namespace WebServCo\Data\Contract\Extraction;
 
 interface ScalarNonEmptyDataExtractionServiceInterface
 {
-    public function getNonEmptyFloat(mixed $value): float;
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyFloat($value): float;
 
-    public function getNonEmptyInt(mixed $value): int;
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyInt($value): int;
 
-    public function getNonEmptyString(mixed $value): string;
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyString($value): string;
 
-    public function getNonEmptyNullableFloat(mixed $value): ?float;
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyNullableFloat($value): ?float;
 
-    public function getNonEmptyNullableInt(mixed $value): ?int;
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyNullableInt($value): ?int;
 
-    public function getNonEmptyNullableString(mixed $value): ?string;
+    /**
+     * @param mixed $value
+     */
+    public function getNonEmptyNullableString($value): ?string;
 }

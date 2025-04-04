@@ -35,6 +35,7 @@ use WebServCo\Data\Service\Extraction\Strict\StrictNonEmptyDataExtractionService
  */
 final class DataExtractionContainer implements DataExtractionContainerInterface
 {
+    private bool $useArrayStorageService;
     private ?ArrayStorageServiceInterface $arrayStorageService = null;
     private ?LooseArrayDataExtractionServiceInterface $looseArrayDataExtractionService = null;
     private ?LooseArrayNonEmptyDataExtractionServiceInterface $looseArrayNonEmptyDataExtractionService = null;
@@ -45,25 +46,22 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
     private ?StrictDataExtractionServiceInterface $strictDataExtractionService = null;
     private ?StrictNonEmptyDataExtractionServiceInterface $strictNonEmptyDataExtractionService = null;
 
-    public function __construct(private bool $useArrayStorageService)
+    public function __construct(bool $useArrayStorageService)
     {
+        $this->useArrayStorageService = $useArrayStorageService;
     }
 
-    #[Override]
     public function getArrayStorageService(): ?ArrayStorageServiceInterface
     {
         if ($this->useArrayStorageService === false) {
             return null;
         }
-
         if ($this->arrayStorageService === null) {
             $this->arrayStorageService = new ArrayStorageService();
         }
-
         return $this->arrayStorageService;
     }
 
-    #[Override]
     public function getLooseArrayDataExtractionService(): LooseArrayDataExtractionServiceInterface
     {
         if ($this->looseArrayDataExtractionService === null) {
@@ -73,11 +71,9 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
                 $this->getLooseNonEmptyDataExtractionService(),
             );
         }
-
         return $this->looseArrayDataExtractionService;
     }
 
-    #[Override]
     public function getLooseArrayNonEmptyDataExtractionService(): LooseArrayNonEmptyDataExtractionServiceInterface
     {
         if ($this->looseArrayNonEmptyDataExtractionService === null) {
@@ -87,11 +83,9 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
                 $this->getLooseNonEmptyDataExtractionService(),
             );
         }
-
         return $this->looseArrayNonEmptyDataExtractionService;
     }
 
-    #[Override]
     public function getStrictArrayDataExtractionService(): StrictArrayDataExtractionServiceInterface
     {
         if ($this->strictArrayDataExtractionService === null) {
@@ -101,11 +95,9 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
                 $this->getStrictNonEmptyDataExtractionService(),
             );
         }
-
         return $this->strictArrayDataExtractionService;
     }
 
-    #[Override]
     public function getStrictArrayNonEmptyDataExtractionService(): StrictArrayNonEmptyDataExtractionServiceInterface
     {
         if ($this->strictArrayNonEmptyDataExtractionService === null) {
@@ -115,47 +107,38 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
                 $this->getStrictNonEmptyDataExtractionService(),
             );
         }
-
         return $this->strictArrayNonEmptyDataExtractionService;
     }
 
-    #[Override]
     public function getLooseDataExtractionService(): LooseDataExtractionServiceInterface
     {
         if ($this->looseDataExtractionService === null) {
             $this->looseDataExtractionService = new LooseDataExtractionService();
         }
-
         return $this->looseDataExtractionService;
     }
 
-    #[Override]
     public function getLooseNonEmptyDataExtractionService(): LooseNonEmptyDataExtractionServiceInterface
     {
         if ($this->looseNonEmptyDataExtractionService === null) {
             $this->looseNonEmptyDataExtractionService = new LooseNonEmptyDataExtractionService();
         }
-
         return $this->looseNonEmptyDataExtractionService;
     }
 
-    #[Override]
     public function getStrictDataExtractionService(): StrictDataExtractionServiceInterface
     {
         if ($this->strictDataExtractionService === null) {
             $this->strictDataExtractionService = new StrictDataExtractionService();
         }
-
         return $this->strictDataExtractionService;
     }
 
-    #[Override]
     public function getStrictNonEmptyDataExtractionService(): StrictNonEmptyDataExtractionServiceInterface
     {
         if ($this->strictNonEmptyDataExtractionService === null) {
             $this->strictNonEmptyDataExtractionService = new StrictNonEmptyDataExtractionService();
         }
-
         return $this->strictNonEmptyDataExtractionService;
     }
 }

@@ -15,27 +15,28 @@ use function is_array;
 final class ArrayStorageService implements ArrayStorageServiceInterface
 {
     // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
-
-    private const string DIVIDER = '/';
+    /**
+     * @var string
+     */
+    private const DIVIDER = '/';
 
     /**
      * @param array<mixed> $data
      * @param array<int,string> $keys
      * @phpcs:disable SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh
+     * @param mixed $defaultValue
+     * @return mixed
      */
-    #[Override]
-    public function get(array $data, array $keys, mixed $defaultValue): mixed
+    public function get(array $data, array $keys, $defaultValue)
     {
         // Handle empty storage.
         if ($data === []) {
             return $defaultValue;
         }
-
         // Handle empty keys.
         if ($keys === []) {
             return $defaultValue;
         }
-
         // Check first element.
         if (array_key_exists(0, $keys) && array_key_exists($keys[0], $data)) {
             // Remove first element.
@@ -57,7 +58,6 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
                 return $this->get($data[$currentKey], $keys, $defaultValue);
             }
         }
-
         // If we arrive here, data is not found.
         return $defaultValue;
     }
@@ -68,15 +68,12 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
      * @param array<mixed> $defaultValue
      * @return array<mixed>
      */
-    #[Override]
     public function getArray(array $data, array $keys, array $defaultValue = []): array
     {
         $result = $this->get($data, $keys, $defaultValue);
-
         if (!is_array($result)) {
             return $defaultValue;
         }
-
         return $result;
     }
     // @phpcs:enable
@@ -84,7 +81,6 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
     /**
      * @return array<int,string>
      */
-    #[Override]
     public function parseKey(string $key): array
     {
         return explode(self::DIVIDER, $key);

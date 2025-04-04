@@ -6,9 +6,19 @@ namespace WebServCo\Data\DataTransferObject\KeyValue;
 
 use WebServCo\Data\Contract\Transfer\DataTransferInterface;
 
-final readonly class StringFloat implements DataTransferInterface
+final class StringFloat implements DataTransferInterface
 {
-    public function __construct(public readonly string $key, public readonly float $value)
+    /**
+     * @readonly
+     */
+    public string $key;
+    /**
+     * @readonly
+     */
+    public float $value;
+    public function __construct(string $key, float $value)
     {
+        $this->key = $key;
+        $this->value = $value;
     }
 }

@@ -7,12 +7,13 @@ namespace WebServCo\Data\Contract\Extraction;
 interface ArrayStorageServiceInterface
 {
     // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
-
     /**
      * @param array<mixed> $data
      * @param array<int,string> $keys
+     * @param mixed $defaultValue
+     * @return mixed
      */
-    public function get(array $data, array $keys, mixed $defaultValue): mixed;
+    public function get(array $data, array $keys, $defaultValue);
 
     /**
      * @param array<mixed> $data

@@ -16,112 +16,124 @@ use function is_string;
 
 abstract class AbstractScalarDataExtractionService implements ScalarDataExtractionServiceInterface
 {
-    private const string MESSAGE_VALUE_TYPE_DIFFERENT = 'Data type is different than expected.';
+    private bool $useTypeCasting;
+    /**
+     * @var string
+     */
+    private const MESSAGE_VALUE_TYPE_DIFFERENT = 'Data type is different than expected.';
 
-    public function __construct(private bool $useTypeCasting)
+    public function __construct(bool $useTypeCasting)
     {
+        $this->useTypeCasting = $useTypeCasting;
     }
 
-    #[Override]
-    public function getBoolean(mixed $value): bool
+    /**
+     * @param mixed $value
+     */
+    public function getBoolean($value): bool
     {
         if ($this->useTypeCasting) {
             $value = (bool) $value;
         }
-
         if (!is_bool($value)) {
             throw new UnexpectedValueException(self::MESSAGE_VALUE_TYPE_DIFFERENT);
         }
-
         return $value;
     }
 
-    #[Override]
-    public function getFloat(mixed $value): float
+    /**
+     * @param mixed $value
+     */
+    public function getFloat($value): float
     {
         if ($this->useTypeCasting) {
             $value = $this->getTypeCastedFloatValue($value);
         }
-
         if (!is_float($value)) {
             throw new UnexpectedValueException(self::MESSAGE_VALUE_TYPE_DIFFERENT);
         }
-
         return $value;
     }
 
-    #[Override]
-    public function getInt(mixed $value): int
+    /**
+     * @param mixed $value
+     */
+    public function getInt($value): int
     {
         if ($this->useTypeCasting) {
             $value = $this->getTypeCastedIntValue($value);
         }
-
         if (!is_int($value)) {
             throw new UnexpectedValueException(self::MESSAGE_VALUE_TYPE_DIFFERENT);
         }
-
         return $value;
     }
 
-    #[Override]
-    public function getString(mixed $value): string
+    /**
+     * @param mixed $value
+     */
+    public function getString($value): string
     {
         if ($this->useTypeCasting) {
             $value = $this->getTypeCastedStringValue($value);
         }
-
         if (!is_string($value)) {
             throw new UnexpectedValueException(self::MESSAGE_VALUE_TYPE_DIFFERENT);
         }
-
         return $value;
     }
 
-    #[Override]
-    public function getNullableBoolean(mixed $value): ?bool
+    /**
+     * @param mixed $value
+     */
+    public function getNullableBoolean($value): ?bool
     {
         // Since value should not be a string, we will consider empty string as null.
         if ($value === null || $value === '') {
             return null;
         }
-
         return $this->getBoolean($value);
     }
 
-    #[Override]
-    public function getNullableFloat(mixed $value): ?float
+    /**
+     * @param mixed $value
+     */
+    public function getNullableFloat($value): ?float
     {
         // Since value should not be a string, we will consider empty string as null.
         if ($value === null || $value === '') {
             return null;
         }
-
         return $this->getFloat($value);
     }
 
-    #[Override]
-    public function getNullableInt(mixed $value): ?int
+    /**
+     * @param mixed $value
+     */
+    public function getNullableInt($value): ?int
     {
         // Since value should not be a string, we will consider empty string as null.
         if ($value === null || $value === '') {
             return null;
         }
-
         return $this->getInt($value);
     }
 
-    #[Override]
-    public function getNullableString(mixed $value): ?string
+    /**
+     * @param mixed $value
+     */
+    public function getNullableString($value): ?string
     {
         if ($value === null) {
             return null;
         }
-
         return $this->getString($value);
     }
 
-    private function getTypeCastedFloatValue(mixed $value): float
+    /**
+     * @param mixed $value
+     */
+    private function getTypeCastedFloatValue($value): float
     {
         if (!is_scalar($value)) {
             throw new UnexpectedValueException('Value is not scalar, type casting is not possible.');
@@ -130,7 +142,10 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return (float) $value;
     }
 
-    private function getTypeCastedIntValue(mixed $value): int
+    /**
+     * @param mixed $value
+     */
+    private function getTypeCastedIntValue($value): int
     {
         if (!is_scalar($value)) {
             throw new UnexpectedValueException('Value is not scalar, type casting is not possible.');
@@ -139,7 +154,10 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return (int) $value;
     }
 
-    private function getTypeCastedStringValue(mixed $value): string
+    /**
+     * @param mixed $value
+     */
+    private function getTypeCastedStringValue($value): string
     {
         if (!is_scalar($value)) {
             throw new UnexpectedValueException('Value is not scalar, type casting is not possible.');

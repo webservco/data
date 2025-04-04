@@ -20,13 +20,19 @@ use function sprintf;
 
 abstract class AbstractArrayDataExtractionService implements ArrayDataExtractionServiceInterface
 {
-    private const string MESSAGE_ERROR = 'Data not found, or wrong type: "%s".';
+    private ?ArrayStorageServiceInterface $arrayStorageService;
+    protected ScalarDataExtractionServiceInterface $scalarDataExtractionService;
+    protected ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService;
+    /**
+     * @var string
+     */
+    private const MESSAGE_ERROR = 'Data not found, or wrong type: "%s".';
 
-    public function __construct(
-        private ?ArrayStorageServiceInterface $arrayStorageService,
-        protected ScalarDataExtractionServiceInterface $scalarDataExtractionService,
-        protected ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
-    ) {
+    public function __construct(?ArrayStorageServiceInterface $arrayStorageService, ScalarDataExtractionServiceInterface $scalarDataExtractionService, ScalarNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService)
+    {
+        $this->arrayStorageService = $arrayStorageService;
+        $this->scalarDataExtractionService = $scalarDataExtractionService;
+        $this->scalarNonEmptyDataExtractionService = $scalarNonEmptyDataExtractionService;
     }
 
     // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
@@ -34,7 +40,6 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     /**
      * @param array<mixed> $data
      */
-    #[Override]
     public function getBoolean(array $data, string $key, ?bool $defaultValue = null): bool
     {
         /**
@@ -44,7 +49,6 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
          * @psalm-suppress MixedAssignment
          */
         $value = $this->getValueFromData($data, $key, $defaultValue);
-
         /**
          * No result from simple array, or null result from array storage (if not found, returns defaultValue)
          *
@@ -61,14 +65,12 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
 
             throw new OutOfBoundsException(sprintf(self::MESSAGE_ERROR, $key));
         }
-
         return $this->scalarDataExtractionService->getBoolean($value);
     }
 
     /**
      * @param array<mixed> $data
      */
-    #[Override]
     public function getFloat(array $data, string $key, ?float $defaultValue = null): float
     {
         /**
@@ -78,7 +80,6 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
          * @psalm-suppress MixedAssignment
          */
         $value = $this->getValueFromData($data, $key, $defaultValue);
-
         /**
          * No result from simple array, or null result from array storage (if not found, returns defaultValue)
          *
@@ -95,14 +96,12 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
 
             throw new OutOfBoundsException(sprintf(self::MESSAGE_ERROR, $key));
         }
-
         return $this->scalarDataExtractionService->getFloat($value);
     }
 
     /**
      * @param array<mixed> $data
      */
-    #[Override]
     public function getInt(array $data, string $key, ?int $defaultValue = null): int
     {
         /**
@@ -112,7 +111,6 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
          * @psalm-suppress MixedAssignment
          */
         $value = $this->getValueFromData($data, $key, $defaultValue);
-
         /**
          * No result from simple array, or null result from array storage (if not found, returns defaultValue)
          *
@@ -129,14 +127,12 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
 
             throw new OutOfBoundsException(sprintf(self::MESSAGE_ERROR, $key));
         }
-
         return $this->scalarDataExtractionService->getInt($value);
     }
 
     /**
      * @param array<mixed> $data
      */
-    #[Override]
     public function getString(array $data, string $key, ?string $defaultValue = null): string
     {
         /**
@@ -146,7 +142,6 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
          * @psalm-suppress MixedAssignment
          */
         $value = $this->getValueFromData($data, $key, $defaultValue);
-
         /**
          * No result from simple array, or null result from array storage (if not found, returns defaultValue)
          *
@@ -163,14 +158,12 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
 
             throw new OutOfBoundsException(sprintf(self::MESSAGE_ERROR, $key));
         }
-
         return $this->scalarDataExtractionService->getString($value);
     }
 
     /**
      * @param array<mixed> $data
      */
-    #[Override]
     public function getNullableBoolean(array $data, string $key, ?bool $defaultValue = null): ?bool
     {
         /**
@@ -180,16 +173,13 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
          * @psalm-suppress MixedAssignment
          */
         $value = $this->getValueFromData($data, $key, $defaultValue);
-
         // No other checks here since nullable.
-
         return $this->scalarDataExtractionService->getNullableBoolean($value);
     }
 
     /**
      * @param array<mixed> $data
      */
-    #[Override]
     public function getNullableFloat(array $data, string $key, ?float $defaultValue = null): ?float
     {
         /**
@@ -199,16 +189,13 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
          * @psalm-suppress MixedAssignment
          */
         $value = $this->getValueFromData($data, $key, $defaultValue);
-
         // No other checks here since nullable.
-
         return $this->scalarDataExtractionService->getNullableFloat($value);
     }
 
     /**
      * @param array<mixed> $data
      */
-    #[Override]
     public function getNullableInt(array $data, string $key, ?int $defaultValue = null): ?int
     {
         /**
@@ -218,16 +205,13 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
          * @psalm-suppress MixedAssignment
          */
         $value = $this->getValueFromData($data, $key, $defaultValue);
-
         // No other checks here since nullable.
-
         return $this->scalarDataExtractionService->getNullableInt($value);
     }
 
     /**
      * @param array<mixed> $data
      */
-    #[Override]
     public function getNullableString(array $data, string $key, ?string $defaultValue = null): ?string
     {
         /**
@@ -237,16 +221,16 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
          * @psalm-suppress MixedAssignment
          */
         $value = $this->getValueFromData($data, $key, $defaultValue);
-
         // No other checks here since nullable.
-
         return $this->scalarDataExtractionService->getNullableString($value);
     }
 
     /**
      * @param array<mixed> $data
+     * @param mixed $defaultValue
+     * @return mixed
      */
-    private function getValueFromData(array $data, string $key, mixed $defaultValue = null): mixed
+    private function getValueFromData(array $data, string $key, $defaultValue = null)
     {
         if ($this->arrayStorageService !== null) {
             return $this->arrayStorageService->get($data, $this->arrayStorageService->parseKey($key), $defaultValue);

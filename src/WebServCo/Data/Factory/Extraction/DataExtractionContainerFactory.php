@@ -11,7 +11,6 @@ use WebServCo\Data\Contract\Extraction\DataExtractionContainerInterface;
 
 final class DataExtractionContainerFactory implements DataExtractionContainerFactoryInterface
 {
-    #[Override]
     public function createDataExtractionContainer(bool $useArrayStorageService): DataExtractionContainerInterface
     {
         return new DataExtractionContainer($useArrayStorageService);
