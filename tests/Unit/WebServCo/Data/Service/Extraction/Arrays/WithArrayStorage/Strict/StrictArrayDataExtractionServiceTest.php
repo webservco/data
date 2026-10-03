@@ -24,7 +24,6 @@ use WebServCo\Data\Service\Extraction\Strict\StrictNonEmptyDataExtractionService
 #[UsesClass(DataExtractionContainer::class)]
 #[UsesClass(DataExtractionContainerFactory::class)]
 #[UsesClass(StrictDataExtractionService::class)]
-#[UsesClass(StrictDataExtractionService::class)]
 #[UsesClass(StrictNonEmptyDataExtractionService::class)]
 final class StrictArrayDataExtractionServiceTest extends AbstractWithTester
 {
