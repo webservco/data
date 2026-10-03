@@ -6,9 +6,9 @@ namespace WebServCo\Data\DataTransferObject\KeyValue;
 
 use WebServCo\Data\Contract\Transfer\DataTransferInterface;
 
-final class StringString implements DataTransferInterface
+final readonly class StringString implements DataTransferInterface
 {
-    public function __construct(public readonly string $key, public readonly string $value)
+    public function __construct(public string $key, public string $value)
     {
     }
 }
