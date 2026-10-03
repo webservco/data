@@ -37,25 +37,29 @@ final class ArrayStorageService implements ArrayStorageServiceInterface
         }
 
         // Check first element.
-        if (array_key_exists(0, $keys) && array_key_exists($keys[0], $data)) {
-            // Remove first element.
-            $currentKey = array_shift($keys);
+        if (!array_key_exists(0, $keys)) {
+            return $defaultValue;
+        }
 
-            // At the end of the recursion $keys will be an empty array.
-            // In that case, we have arrived at the end.
-            if ($keys === []) {
-                if (array_key_exists($currentKey, $data)) {
-                    return $data[$currentKey];
-                }
+        $currentKey = $keys[0];
 
-                return $defaultValue;
-            }
+        if (!array_key_exists($currentKey, $data)) {
+            return $defaultValue;
+        }
 
-            // Check array conditions.
-            if (is_array($data[$currentKey])) {
-                // Go down one level and call the method again.
-                return $this->get($data[$currentKey], $keys, $defaultValue);
-            }
+        // Remove first element.
+        array_shift($keys);
+
+        // At the end of the recursion $keys will be an empty array.
+        // In that case, we have arrived at the end.
+        if ($keys === []) {
+            return $data[$currentKey];
+        }
+
+        // Check array conditions.
+        if (is_array($data[$currentKey])) {
+            // Go down one level and call the method again.
+            return $this->get($data[$currentKey], $keys, $defaultValue);
         }
 
         // If we arrive here, data is not found.
