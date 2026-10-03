@@ -6,6 +6,7 @@ namespace Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\S
 
 use OutOfBoundsException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use Tests\Unit\Assets\Traits\JsonApiDataTrait;
 use Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\AbstractWithTester;
@@ -35,8 +36,9 @@ final class NonEmptyDataStringTest extends AbstractWithTester
     use JsonApiDataTrait;
 
     /**
-     * @test getNonEmptyString
+     * Tests `getNonEmptyString`.
      */
+    #[Test]
     public function dataNonEmptyStringThrowsExceptionWhenNullWithoutDefaultValue(): void
     {
         $this->expectException(OutOfBoundsException::class);
@@ -49,8 +51,9 @@ final class NonEmptyDataStringTest extends AbstractWithTester
     }
 
     /**
-     * @test getNonEmptyString
+     * Tests `getNonEmptyString`.
      */
+    #[Test]
     public function dataNonEmptyStringValueMatches(): void
     {
         $result = $this->getDataExtractionContainer()->getStrictArrayNonEmptyDataExtractionService()->getNonEmptyString(
@@ -62,8 +65,9 @@ final class NonEmptyDataStringTest extends AbstractWithTester
     }
 
     /**
-     * @test getNonEmptyString
+     * Tests `getNonEmptyString`.
      */
+    #[Test]
     public function dataNonEmptyStringWorksWhenNullWithDefaultValue(): void
     {
         $defaultValue = 'string';

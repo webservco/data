@@ -6,6 +6,7 @@ namespace Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\S
 
 use OutOfBoundsException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use Tests\Unit\Assets\Traits\JsonApiDataTrait;
 use Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\AbstractWithTester;
@@ -31,8 +32,9 @@ final class DataIntTest extends AbstractWithTester
     use JsonApiDataTrait;
 
     /**
-     * @test getInt
+     * Tests `getInt`.
      */
+    #[Test]
     public function dataIntThrowsExceptionWhenNullWithoutDefaultValue(): void
     {
         $this->expectException(OutOfBoundsException::class);
@@ -45,8 +47,9 @@ final class DataIntTest extends AbstractWithTester
     }
 
     /**
-     * @test getInt
+     * Tests `getInt`.
      */
+    #[Test]
     public function dataIntValueMatches(): void
     {
         $result = $this->getDataExtractionContainer()->getStrictArrayDataExtractionService()->getInt(
@@ -58,8 +61,9 @@ final class DataIntTest extends AbstractWithTester
     }
 
     /**
-     * @test getInt
+     * Tests `getInt`.
      */
+    #[Test]
     public function dataIntWorksWhenNullWithDefaultValue(): void
     {
         $defaultValue = 99;

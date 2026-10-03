@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithoutArrayStorage\Strict;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use Tests\Unit\Assets\Traits\DataTrait;
 use Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithoutArrayStorage\AbstractWithoutTester;
@@ -28,8 +29,9 @@ final class StrictArrayDataExtractionServiceTest extends AbstractWithoutTester
     use DataTrait;
 
     /**
-     * @test getFloat
+     * Tests `getFloat`.
      */
+    #[Test]
     public function floatWorks(): void
     {
         self::assertSame(
@@ -40,8 +42,9 @@ final class StrictArrayDataExtractionServiceTest extends AbstractWithoutTester
     }
 
     /**
-     * @test getInt
+     * Tests `getInt`.
      */
+    #[Test]
     public function intWorks(): void
     {
         self::assertSame(
@@ -52,8 +55,9 @@ final class StrictArrayDataExtractionServiceTest extends AbstractWithoutTester
     }
 
     /**
-     * @test getString
+     * Tests `getString`.
      */
+    #[Test]
     public function stringWorks(): void
     {
         self::assertSame(

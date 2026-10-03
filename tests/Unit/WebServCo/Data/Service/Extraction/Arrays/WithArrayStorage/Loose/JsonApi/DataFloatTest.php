@@ -6,6 +6,7 @@ namespace Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\L
 
 use OutOfBoundsException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use Tests\Unit\Assets\Traits\JsonApiDataTrait;
 use Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\AbstractWithTester;
@@ -31,8 +32,9 @@ final class DataFloatTest extends AbstractWithTester
     use JsonApiDataTrait;
 
     /**
-     * @test getFloat
+     * Tests `getFloat`.
      */
+    #[Test]
     public function dataFloatThrowsExceptionWhenNullWithoutDefaultValue(): void
     {
         $this->expectException(OutOfBoundsException::class);
@@ -45,8 +47,9 @@ final class DataFloatTest extends AbstractWithTester
     }
 
     /**
-     * @test getFloat
+     * Tests `getFloat`.
      */
+    #[Test]
     public function dataFloatValueMatches(): void
     {
         $result = $this->getDataExtractionContainer()->getLooseArrayDataExtractionService()->getFloat(
@@ -58,8 +61,9 @@ final class DataFloatTest extends AbstractWithTester
     }
 
     /**
-     * @test getFloat
+     * Tests `getFloat`.
      */
+    #[Test]
     public function dataFloatWorksWhenNullWithDefaultValue(): void
     {
         $defaultValue = 0.99;

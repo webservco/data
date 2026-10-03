@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\Strict\JsonApi;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use Tests\Unit\Assets\Traits\JsonApiDataTrait;
 use Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\AbstractWithTester;
@@ -30,8 +31,9 @@ final class DataTest extends AbstractWithTester
     use JsonApiDataTrait;
 
     /**
-     * @test getNullableBoolean
+     * Tests `getNullableBoolean`.
      */
+    #[Test]
     public function dataNullValueMatches(): void
     {
         // Use `false` as defaultValue to be able to check the result.
@@ -45,8 +47,9 @@ final class DataTest extends AbstractWithTester
     }
 
     /**
-     * @test getNullableBoolean
+     * Tests `getNullableBoolean`.
      */
+    #[Test]
     public function errorsIsNull(): void
     {
         // Config.

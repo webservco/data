@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\Strict\JsonApi;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\UsesClass;
 use Tests\Unit\Assets\Traits\JsonApiDataTrait;
 use Tests\Unit\WebServCo\Data\Service\Extraction\Arrays\WithArrayStorage\AbstractWithTester;
@@ -30,8 +31,9 @@ final class DataNullableTest extends AbstractWithTester
     use JsonApiDataTrait;
 
     /**
-     * @test getNullableBoolean
+     * Tests `getNullableBoolean`.
      */
+    #[Test]
     public function nullableBooleanWorks(): void
     {
         // Do not use a default value in this situation.
@@ -44,8 +46,9 @@ final class DataNullableTest extends AbstractWithTester
     }
 
     /**
-     * @test getNullableFloat
+     * Tests `getNullableFloat`.
      */
+    #[Test]
     public function nullableFloatWorks(): void
     {
         // Do not use a default value in this situation.
@@ -58,8 +61,9 @@ final class DataNullableTest extends AbstractWithTester
     }
 
     /**
-     * @test getNullableInt
+     * Tests `getNullableInt`.
      */
+    #[Test]
     public function nullableIntWorks(): void
     {
         // Do not use a default value in this situation.
@@ -72,8 +76,9 @@ final class DataNullableTest extends AbstractWithTester
     }
 
     /**
-     * @test getNullableString
+     * Tests `getNullableString`.
      */
+    #[Test]
     public function nullableStringWorks(): void
     {
         // Do not use a default value in this situation.
