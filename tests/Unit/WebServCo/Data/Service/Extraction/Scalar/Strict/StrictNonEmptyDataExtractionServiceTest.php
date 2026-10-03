@@ -28,7 +28,7 @@ final class StrictNonEmptyDataExtractionServiceTest extends AbstractWithoutTeste
     {
         $this->expectException(UnexpectedValueException::class);
 
-        $this->expectExceptionMessage('Data is empty.');
+        $this->expectExceptionMessageIs('Data is empty.');
 
         $this->getDataExtractionContainer()->getStrictNonEmptyDataExtractionService()
             ->getNonEmptyFloat(self::EMPTY_DATA['strict']['floatValue']);
@@ -38,7 +38,7 @@ final class StrictNonEmptyDataExtractionServiceTest extends AbstractWithoutTeste
     {
         $this->expectException(UnexpectedValueException::class);
 
-        $this->expectExceptionMessage('Data is empty.');
+        $this->expectExceptionMessageIs('Data is empty.');
 
         $this->getDataExtractionContainer()->getStrictNonEmptyDataExtractionService()
             ->getNonEmptyInt(self::EMPTY_DATA['strict']['integerValue']);
@@ -48,7 +48,7 @@ final class StrictNonEmptyDataExtractionServiceTest extends AbstractWithoutTeste
     {
         $this->expectException(UnexpectedValueException::class);
 
-        $this->expectExceptionMessage('Data is empty.');
+        $this->expectExceptionMessageIs('Data is empty.');
 
         $this->getDataExtractionContainer()->getStrictNonEmptyDataExtractionService()
             ->getNonEmptyString(self::EMPTY_DATA['strict']['stringValue']);

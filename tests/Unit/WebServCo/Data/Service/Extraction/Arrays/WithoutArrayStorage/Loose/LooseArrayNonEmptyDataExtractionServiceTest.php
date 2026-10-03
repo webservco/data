@@ -38,7 +38,7 @@ final class LooseArrayNonEmptyDataExtractionServiceTest extends AbstractWithoutT
     {
         $this->expectException(UnexpectedValueException::class);
 
-        $this->expectExceptionMessage('Data is empty.');
+        $this->expectExceptionMessageIs('Data is empty.');
 
         $this->getDataExtractionContainer()->getLooseArrayNonEmptyDataExtractionService()
             ->getNonEmptyString(self::EMPTY_DATA['loose'], 'stringValue');
@@ -48,7 +48,7 @@ final class LooseArrayNonEmptyDataExtractionServiceTest extends AbstractWithoutT
     {
         $this->expectException(UnexpectedValueException::class);
 
-        $this->expectExceptionMessage('Data is empty.');
+        $this->expectExceptionMessageIs('Data is empty.');
 
         $this->getDataExtractionContainer()->getLooseArrayNonEmptyDataExtractionService()
             ->getNonEmptyString(self::EMPTY_DATA['loose'], 'stringValue');
@@ -58,7 +58,7 @@ final class LooseArrayNonEmptyDataExtractionServiceTest extends AbstractWithoutT
     {
         $this->expectException(UnexpectedValueException::class);
 
-        $this->expectExceptionMessage('Data is empty.');
+        $this->expectExceptionMessageIs('Data is empty.');
 
         $this->getDataExtractionContainer()->getLooseArrayNonEmptyDataExtractionService()
             ->getNonEmptyString(self::EMPTY_DATA['loose'], 'stringValue');
