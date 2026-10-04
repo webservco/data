@@ -32,7 +32,10 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
 
     /**
+     * Typed value getter, named like the other get<Type> methods; renaming would break BC.
+     *
      * @param array<mixed> $data
+     * @SuppressWarnings("PHPMD.BooleanGetMethodName")
      */
     #[Override]
     public function getBoolean(array $data, string $key, ?bool $defaultValue = null): bool
@@ -168,7 +171,10 @@ abstract class AbstractArrayDataExtractionService implements ArrayDataExtraction
     }
 
     /**
+     * Typed value getter, named like the other get<Type> methods; renaming would break BC.
+     *
      * @param array<mixed> $data
+     * @SuppressWarnings("PHPMD.BooleanGetMethodName")
      */
     #[Override]
     public function getNullableBoolean(array $data, string $key, ?bool $defaultValue = null): ?bool

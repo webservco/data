@@ -8,7 +8,10 @@ interface ArrayDataExtractionServiceInterface
 {
     // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
     /**
+     * Typed value getter, named like the other get<Type> methods; renaming would break BC.
+     *
      * @param array<mixed> $data
+     * @SuppressWarnings("PHPMD.BooleanGetMethodName")
      */
     public function getBoolean(array $data, string $key, ?bool $defaultValue = null): bool;
 
@@ -28,7 +31,10 @@ interface ArrayDataExtractionServiceInterface
     public function getString(array $data, string $key, ?string $defaultValue = null): string;
 
     /**
+     * Typed value getter, named like the other get<Type> methods; renaming would break BC.
+     *
      * @param array<mixed> $data
+     * @SuppressWarnings("PHPMD.BooleanGetMethodName")
      */
     public function getNullableBoolean(array $data, string $key, ?bool $defaultValue = null): ?bool;
 

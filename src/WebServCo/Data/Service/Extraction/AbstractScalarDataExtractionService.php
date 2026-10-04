@@ -22,6 +22,11 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
     {
     }
 
+    /**
+     * Typed value getter, named like the other get<Type> methods; renaming would break BC.
+     *
+     * @SuppressWarnings("PHPMD.BooleanGetMethodName")
+     */
     #[Override]
     public function getBoolean(mixed $value): bool
     {
@@ -78,6 +83,11 @@ abstract class AbstractScalarDataExtractionService implements ScalarDataExtracti
         return $value;
     }
 
+    /**
+     * Typed value getter, named like the other get<Type> methods; renaming would break BC.
+     *
+     * @SuppressWarnings("PHPMD.BooleanGetMethodName")
+     */
     #[Override]
     public function getNullableBoolean(mixed $value): ?bool
     {
