@@ -20,7 +20,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
-    "description" : "A PHP component/library.",
+    "description" : "A PHP component/library. Data transfer objects, and services that pull typed values out of mixed data such as request bodies, sessions and database rows.",
     "homepage" : "https://webserv.co",
     "keywords" : [
         "component",
