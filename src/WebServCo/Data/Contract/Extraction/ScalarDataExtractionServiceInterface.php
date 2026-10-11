@@ -10,25 +10,45 @@ interface ScalarDataExtractionServiceInterface
      * Typed value getter, named like the other get<Type> methods; renaming would break BC.
      *
      * @SuppressWarnings("PHPMD.BooleanGetMethodName")
+     * @param mixed $value
      */
-    public function getBoolean(mixed $value): bool;
+    public function getBoolean($value): bool;
 
-    public function getFloat(mixed $value): float;
+    /**
+     * @param mixed $value
+     */
+    public function getFloat($value): float;
 
-    public function getInt(mixed $value): int;
+    /**
+     * @param mixed $value
+     */
+    public function getInt($value): int;
 
-    public function getString(mixed $value): string;
+    /**
+     * @param mixed $value
+     */
+    public function getString($value): string;
 
     /**
      * Typed value getter, named like the other get<Type> methods; renaming would break BC.
      *
      * @SuppressWarnings("PHPMD.BooleanGetMethodName")
+     * @param mixed $value
      */
-    public function getNullableBoolean(mixed $value): ?bool;
+    public function getNullableBoolean($value): ?bool;
 
-    public function getNullableFloat(mixed $value): ?float;
+    /**
+     * @param mixed $value
+     */
+    public function getNullableFloat($value): ?float;
 
-    public function getNullableInt(mixed $value): ?int;
+    /**
+     * @param mixed $value
+     */
+    public function getNullableInt($value): ?int;
 
-    public function getNullableString(mixed $value): ?string;
+    /**
+     * @param mixed $value
+     */
+    public function getNullableString($value): ?string;
 }

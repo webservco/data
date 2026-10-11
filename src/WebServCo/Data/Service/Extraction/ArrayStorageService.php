@@ -15,16 +15,20 @@ use function is_array;
 final class ArrayStorageService implements ArrayStorageServiceInterface
 {
     // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
-
-    private const string DIVIDER = '/';
+    /**
+     * @var string
+     */
+    private const DIVIDER = '/';
 
     /**
      * @param array<mixed> $data
      * @param array<int,string> $keys
      * @phpcs:disable SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh
+     * @param mixed $defaultValue
+     * @return mixed
      */
     #[Override]
-    public function get(array $data, array $keys, mixed $defaultValue): mixed
+    public function get(array $data, array $keys, $defaultValue)
     {
         // Handle empty storage.
         if ($data === []) {
