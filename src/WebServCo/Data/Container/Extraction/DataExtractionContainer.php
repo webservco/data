@@ -6,6 +6,7 @@ namespace WebServCo\Data\Container\Extraction;
 
 use Override;
 use WebServCo\Data\Contract\Extraction\ArrayStorageServiceInterface;
+use WebServCo\Data\Contract\Extraction\CollectionDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\DataExtractionContainerInterface;
 use WebServCo\Data\Contract\Extraction\Loose\LooseArrayDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\Loose\LooseArrayNonEmptyDataExtractionServiceInterface;
@@ -16,6 +17,7 @@ use WebServCo\Data\Contract\Extraction\Strict\StrictArrayNonEmptyDataExtractionS
 use WebServCo\Data\Contract\Extraction\Strict\StrictDataExtractionServiceInterface;
 use WebServCo\Data\Contract\Extraction\Strict\StrictNonEmptyDataExtractionServiceInterface;
 use WebServCo\Data\Service\Extraction\ArrayStorageService;
+use WebServCo\Data\Service\Extraction\CollectionDataExtractionService;
 use WebServCo\Data\Service\Extraction\Loose\LooseArrayDataExtractionService;
 use WebServCo\Data\Service\Extraction\Loose\LooseArrayNonEmptyDataExtractionService;
 use WebServCo\Data\Service\Extraction\Loose\LooseDataExtractionService;
@@ -44,6 +46,8 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
     private ?LooseNonEmptyDataExtractionServiceInterface $looseNonEmptyDataExtractionService = null;
     private ?StrictDataExtractionServiceInterface $strictDataExtractionService = null;
     private ?StrictNonEmptyDataExtractionServiceInterface $strictNonEmptyDataExtractionService = null;
+    private ?CollectionDataExtractionServiceInterface $looseCollectionDataExtractionService = null;
+    private ?CollectionDataExtractionServiceInterface $strictCollectionDataExtractionService = null;
 
     public function __construct(private bool $useArrayStorageService)
     {
@@ -157,5 +161,31 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
         }
 
         return $this->strictNonEmptyDataExtractionService;
+    }
+
+    #[Override]
+    public function getLooseCollectionDataExtractionService(): CollectionDataExtractionServiceInterface
+    {
+        if ($this->looseCollectionDataExtractionService === null) {
+            $this->looseCollectionDataExtractionService = new CollectionDataExtractionService(
+                $this->getArrayStorageService(),
+                $this->getLooseDataExtractionService(),
+            );
+        }
+
+        return $this->looseCollectionDataExtractionService;
+    }
+
+    #[Override]
+    public function getStrictCollectionDataExtractionService(): CollectionDataExtractionServiceInterface
+    {
+        if ($this->strictCollectionDataExtractionService === null) {
+            $this->strictCollectionDataExtractionService = new CollectionDataExtractionService(
+                $this->getArrayStorageService(),
+                $this->getStrictDataExtractionService(),
+            );
+        }
+
+        return $this->strictCollectionDataExtractionService;
     }
 }

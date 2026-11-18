@@ -32,4 +32,14 @@ interface DataExtractionContainerInterface
     public function getStrictDataExtractionService(): StrictDataExtractionServiceInterface;
 
     public function getStrictNonEmptyDataExtractionService(): StrictNonEmptyDataExtractionServiceInterface;
+
+    /**
+     * Typed lists and maps, with the loose scalar service: every item is cast.
+     */
+    public function getLooseCollectionDataExtractionService(): CollectionDataExtractionServiceInterface;
+
+    /**
+     * Typed lists and maps, with the strict scalar service: every item must already have its type.
+     */
+    public function getStrictCollectionDataExtractionService(): CollectionDataExtractionServiceInterface;
 }
