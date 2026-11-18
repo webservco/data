@@ -16,7 +16,7 @@ final class StrictArrayNonEmptyDataExtractionService extends AbstractArrayNonEmp
     public function __construct(
         ?ArrayStorageServiceInterface $arrayStorageService,
         StrictDataExtractionServiceInterface $scalarDataExtractionService,
-        StrictNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
+        StrictNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService
     ) {
         parent::__construct($arrayStorageService, $scalarDataExtractionService, $scalarNonEmptyDataExtractionService);
     }

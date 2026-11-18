@@ -37,6 +37,7 @@ use WebServCo\Data\Service\Extraction\Strict\StrictNonEmptyDataExtractionService
  */
 final class DataExtractionContainer implements DataExtractionContainerInterface
 {
+    private bool $useArrayStorageService;
     private ?ArrayStorageServiceInterface $arrayStorageService = null;
     private ?LooseArrayDataExtractionServiceInterface $looseArrayDataExtractionService = null;
     private ?LooseArrayNonEmptyDataExtractionServiceInterface $looseArrayNonEmptyDataExtractionService = null;
@@ -49,8 +50,9 @@ final class DataExtractionContainer implements DataExtractionContainerInterface
     private ?CollectionDataExtractionServiceInterface $looseCollectionDataExtractionService = null;
     private ?CollectionDataExtractionServiceInterface $strictCollectionDataExtractionService = null;
 
-    public function __construct(private bool $useArrayStorageService)
+    public function __construct(bool $useArrayStorageService)
     {
+        $this->useArrayStorageService = $useArrayStorageService;
     }
 
     #[Override]

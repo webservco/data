@@ -24,18 +24,34 @@ use function sprintf;
  */
 final class CollectionDataExtractionService implements CollectionDataExtractionServiceInterface
 {
+    private ?ArrayStorageServiceInterface $arrayStorageService;
+    private ScalarDataExtractionServiceInterface $scalarDataExtractionService;
     // @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+    /**
+     * @var string
+     */
+    private const MESSAGE_ITEM_TYPE = 'Data type is different than expected: "%s", item "%s".';
+    /**
+     * @var string
+     */
+    private const MESSAGE_NOT_ARRAY = 'Data is not an array: "%s".';
+    /**
+     * @var string
+     */
+    private const MESSAGE_NOT_FOUND = 'Data not found: "%s".';
+    /**
+     * @var string
+     */
+    private const MESSAGE_NOT_LIST = 'Data is not a list: "%s".';
+    /**
+     * @var string
+     */
+    private const MESSAGE_NOT_MAP = 'Data is not a map with string keys: "%s".';
 
-    private const string MESSAGE_ITEM_TYPE = 'Data type is different than expected: "%s", item "%s".';
-    private const string MESSAGE_NOT_ARRAY = 'Data is not an array: "%s".';
-    private const string MESSAGE_NOT_FOUND = 'Data not found: "%s".';
-    private const string MESSAGE_NOT_LIST = 'Data is not a list: "%s".';
-    private const string MESSAGE_NOT_MAP = 'Data is not a map with string keys: "%s".';
-
-    public function __construct(
-        private ?ArrayStorageServiceInterface $arrayStorageService,
-        private ScalarDataExtractionServiceInterface $scalarDataExtractionService,
-    ) {
+    public function __construct(?ArrayStorageServiceInterface $arrayStorageService, ScalarDataExtractionServiceInterface $scalarDataExtractionService)
+    {
+        $this->arrayStorageService = $arrayStorageService;
+        $this->scalarDataExtractionService = $scalarDataExtractionService;
     }
 
     /**
@@ -61,10 +77,13 @@ final class CollectionDataExtractionService implements CollectionDataExtractionS
     {
         $value = $this->getArrayValue($data, $key);
         if ($value === null) {
-            return $defaultValue ?? throw new OutOfBoundsException(sprintf(self::MESSAGE_NOT_FOUND, $key));
+            if (!isset($defaultValue)) {
+                throw new OutOfBoundsException(sprintf(self::MESSAGE_NOT_FOUND, $key));
+            }
+            return $defaultValue;
         }
 
-        return $this->extractList($value, $key, $this->scalarDataExtractionService->getInt(...));
+        return $this->extractList($value, $key, \Closure::fromCallable([$this->scalarDataExtractionService, 'getInt']));
     }
 
     /**
@@ -77,10 +96,13 @@ final class CollectionDataExtractionService implements CollectionDataExtractionS
     {
         $value = $this->getArrayValue($data, $key);
         if ($value === null) {
-            return $defaultValue ?? throw new OutOfBoundsException(sprintf(self::MESSAGE_NOT_FOUND, $key));
+            if (!isset($defaultValue)) {
+                throw new OutOfBoundsException(sprintf(self::MESSAGE_NOT_FOUND, $key));
+            }
+            return $defaultValue;
         }
 
-        return $this->extractList($value, $key, $this->scalarDataExtractionService->getString(...));
+        return $this->extractList($value, $key, \Closure::fromCallable([$this->scalarDataExtractionService, 'getString']));
     }
 
     /**
@@ -93,7 +115,10 @@ final class CollectionDataExtractionService implements CollectionDataExtractionS
     {
         $value = $this->getArrayValue($data, $key);
         if ($value === null) {
-            return $defaultValue ?? throw new OutOfBoundsException(sprintf(self::MESSAGE_NOT_FOUND, $key));
+            if (!isset($defaultValue)) {
+                throw new OutOfBoundsException(sprintf(self::MESSAGE_NOT_FOUND, $key));
+            }
+            return $defaultValue;
         }
 
         $map = [];
@@ -103,7 +128,7 @@ final class CollectionDataExtractionService implements CollectionDataExtractionS
                 throw new UnexpectedValueException(sprintf(self::MESSAGE_NOT_MAP, $key));
             }
             $map[$mapKey] = $this->extractItem(
-                $this->scalarDataExtractionService->getString(...),
+                \Closure::fromCallable([$this->scalarDataExtractionService, 'getString']),
                 $item,
                 $key,
                 $mapKey,
@@ -121,7 +146,23 @@ final class CollectionDataExtractionService implements CollectionDataExtractionS
      */
     private function extractList(array $value, string $key, callable $extractItem): array
     {
-        if (!array_is_list($value)) {
+        $arrayIsListFunction = function (array $array): bool {
+            if (function_exists('array_is_list')) {
+                return array_is_list($array);
+            }
+            if ($array === []) {
+                return true;
+            }
+            $current_key = 0;
+            foreach ($array as $key => $noop) {
+                if ($key !== $current_key) {
+                    return false;
+                }
+                ++$current_key;
+            }
+            return true;
+        };
+        if (!$arrayIsListFunction($value)) {
             throw new UnexpectedValueException(sprintf(self::MESSAGE_NOT_LIST, $key));
         }
 
@@ -140,8 +181,10 @@ final class CollectionDataExtractionService implements CollectionDataExtractionS
      * @template T
      * @param callable(mixed): T $extractItem
      * @return T
+     * @param int|string $itemKey
+     * @param mixed $item
      */
-    private function extractItem(callable $extractItem, mixed $item, string $key, int|string $itemKey): mixed
+    private function extractItem(callable $extractItem, $item, string $key, $itemKey)
     {
         try {
             return $extractItem($item);
@@ -171,8 +214,9 @@ final class CollectionDataExtractionService implements CollectionDataExtractionS
 
     /**
      * @param array<mixed> $data
+     * @return mixed
      */
-    private function getValueFromData(array $data, string $key): mixed
+    private function getValueFromData(array $data, string $key)
     {
         if ($this->arrayStorageService !== null) {
             return $this->arrayStorageService->get($data, $this->arrayStorageService->parseKey($key), null);

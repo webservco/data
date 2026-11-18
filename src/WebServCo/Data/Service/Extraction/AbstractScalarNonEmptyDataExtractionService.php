@@ -11,10 +11,16 @@ use WebServCo\Data\Contract\Extraction\ScalarNonEmptyDataExtractionServiceInterf
 abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScalarDataExtractionService implements
     ScalarNonEmptyDataExtractionServiceInterface
 {
-    private const string MESSAGE_VALUE_EMPTY = 'Data is empty.';
+    /**
+     * @var string
+     */
+    private const MESSAGE_VALUE_EMPTY = 'Data is empty.';
 
+    /**
+     * @param mixed $value
+     */
     #[Override]
-    public function getNonEmptyFloat(mixed $value): float
+    public function getNonEmptyFloat($value): float
     {
         $value = $this->getFloat($value);
 
@@ -25,8 +31,11 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $value;
     }
 
+    /**
+     * @param mixed $value
+     */
     #[Override]
-    public function getNonEmptyInt(mixed $value): int
+    public function getNonEmptyInt($value): int
     {
         $value = $this->getInt($value);
 
@@ -37,8 +46,11 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $value;
     }
 
+    /**
+     * @param mixed $value
+     */
     #[Override]
-    public function getNonEmptyString(mixed $value): string
+    public function getNonEmptyString($value): string
     {
         $value = $this->getString($value);
 
@@ -49,8 +61,11 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $value;
     }
 
+    /**
+     * @param mixed $value
+     */
     #[Override]
-    public function getNonEmptyNullableFloat(mixed $value): ?float
+    public function getNonEmptyNullableFloat($value): ?float
     {
         $value = $this->getNullableFloat($value);
 
@@ -61,8 +76,11 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $this->getNonEmptyFloat($value);
     }
 
+    /**
+     * @param mixed $value
+     */
     #[Override]
-    public function getNonEmptyNullableInt(mixed $value): ?int
+    public function getNonEmptyNullableInt($value): ?int
     {
         $value = $this->getNullableInt($value);
 
@@ -73,8 +91,11 @@ abstract class AbstractScalarNonEmptyDataExtractionService extends AbstractScala
         return $this->getNonEmptyInt($value);
     }
 
+    /**
+     * @param mixed $value
+     */
     #[Override]
-    public function getNonEmptyNullableString(mixed $value): ?string
+    public function getNonEmptyNullableString($value): ?string
     {
         $value = $this->getNullableString($value);
 

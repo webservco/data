@@ -16,7 +16,7 @@ final class LooseArrayDataExtractionService extends AbstractArrayDataExtractionS
     public function __construct(
         ?ArrayStorageServiceInterface $arrayStorageService,
         LooseDataExtractionServiceInterface $scalarDataExtractionService,
-        LooseNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService,
+        LooseNonEmptyDataExtractionServiceInterface $scalarNonEmptyDataExtractionService
     ) {
         parent::__construct($arrayStorageService, $scalarDataExtractionService, $scalarNonEmptyDataExtractionService);
     }
